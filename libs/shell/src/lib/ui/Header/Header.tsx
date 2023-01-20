@@ -15,7 +15,7 @@ export function Header({ title, children }: HeaderProps) {
           className="flex items-center pl-4 uppercase text-2xl font-bold text-black no-underline hover:no-underline lg:text-4xl"
           href="/"
         >
-          <img src={logo} alt="Cocinista Logo" className="h-10 w-10" data-testid='logo' />
+          <img src={logo} alt="Cocinista Logo" className="h-10 w-10" data-testid="logo" />
           <p className="pl-4" data-testid='title'>{title}</p>
         </a>
         {children}

@@ -18,6 +18,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@cocinista/auth": [
+        "libs/shared/auth/src/index.ts"
+      ],
       "@cocinista/shell": [
         "libs/shell/src/index.ts"
       ]
