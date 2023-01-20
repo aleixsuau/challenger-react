@@ -1,7 +1,6 @@
 import styles from './Shell.module.scss';
 import Header from '../Header/Header';
 import Menu from '../Menu/Menu';
-
 export interface ShellConfigProps {
   title: string;
   navbar: NavBar;

@@ -1,4 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { AuthProvider } from '@cocinista/auth';
 import { Shell, ShellConfigProps } from '@cocinista/shell';
 import styles from './app.module.scss';
 
@@ -22,8 +23,10 @@ const shellConfigProps: ShellConfigProps = {
 
 export function App() {
   return (
-    <Shell title={shellConfigProps.title} navbar={shellConfigProps.navbar}>
-    </Shell>
+    <AuthProvider>
+      <Shell title={shellConfigProps.title} navbar={shellConfigProps.navbar}>
+      </Shell>
+    </AuthProvider>
   );
 }
 
