@@ -1,23 +1,10 @@
 import { render } from '@testing-library/react';
-
 import Header from './Header';
 
 describe('Header', () => {
-  it('should display the core elements', () => {
-    const title = 'test-title';
-    const { getByTestId } = render(
-      <Header title={title}>
-        <div data-testid="children-content"></div>
-      </Header>
-    );
-
-    expect(getByTestId('logo')).toBeTruthy();
-    expect(getByTestId('title').textContent).toBe(title);
-  });
-
   it('should display children content', () => {
     const { getByTestId } = render(
-      <Header title='test-title'>
+      <Header>
         <div data-testid="children-content"></div>
       </Header>
     );

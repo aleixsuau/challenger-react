@@ -1,6 +1,6 @@
 # shell
 
-Shell component with core elements (header, menu, footer...) for the app.
+Shell component with core elements (header, navbar, footer...) for the app.
 
 ## Running unit tests
 

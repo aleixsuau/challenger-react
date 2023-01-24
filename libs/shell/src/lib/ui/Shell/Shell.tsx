@@ -1,33 +1,46 @@
+import { useState } from 'react';
 import styles from './Shell.module.scss';
 import Header from '../Header/Header';
-import Menu from '../Menu/Menu';
+import NavBar, { NavBarConfig } from '../NavBar/NavBar';
+import UserMenu, { UserMenuConfig } from '../UserMenu/UserMenu';
+import NavBarToggle from '../NavBar/NavBarToggle/NavBarToggle';
+import Brand from '../Brand/Brand';
+
 export interface ShellConfigProps {
   title: string;
-  navbar: NavBar;
+  navbar: NavBarConfig;
+  userMenu: UserMenuConfig;
   children?: React.ReactNode;
 }
 
-export interface NavBar {
-  sections: NavBarSection[];
-}
-
-export interface NavBarSection {
+export interface Section {
   link: string;
   text: string;
   icon?: string;
 }
 
-export function Shell({ title, navbar, children }: ShellConfigProps) {
+export function Shell({ title, navbar, userMenu, children }: ShellConfigProps) {
+  const [navbarIsOpen, setNavbarIsOpen] = useState(false);
+  const handleNavbarToggle = () => setNavbarIsOpen((isOpen) => !isOpen);
+
   return (
     <div className="leading-normal tracking-normal" data-testid="shell">
-      <Header title={title}>
-        <Menu navbar={navbar} />
+      <Header>
+        <NavBarToggle onToggle={handleNavbarToggle} />
+        <Brand title={title} />
+        <NavBar sections={navbar.sections} />
+        <UserMenu sections={userMenu?.sections} />
+        <NavBar
+          sections={navbar.sections}
+          isOpen={navbarIsOpen}
+          vertical={true}
+        />
       </Header>
 
       {/* Children container */}
-      <div className="pt-20" data-testid="shell-container">
+      <main className="pt-20" data-testid="shell-container">
         {children}
-      </div>
+      </main>
     </div>
   );
 }

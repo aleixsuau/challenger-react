@@ -1,23 +1,23 @@
-import styles from './MenuToggle.module.scss';
+import styles from './NavBarToggle.module.scss';
 
 /* eslint-disable-next-line */
-export interface MenuToggleProps {
+export interface NavbarToggleProps {
   onToggle: () => void;
 }
 
-export function MenuToggle({ onToggle }: MenuToggleProps) {
+export function NavBarToggle({ onToggle }: NavbarToggleProps) {
   const handleToggleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     onToggle();
   };
 
   return (
-    <div className="block pr-4 lg:hidden" data-testid="menu-toggle">
+    <div className="block pr-4 lg:hidden" data-testid="navbar-toggle">
       <button
         id="nav-toggle"
         className="focus:shadow-outline flex transform items-center p-1 text-black transition duration-300 ease-in-out hover:scale-105 hover:text-gray-900 focus:outline-none"
         onClick={(e) => handleToggleClick(e)}
-        data-testid="menu-toggle-button"
+        data-testid="navbar-toggle-button"
       >
         <svg
           className="h-6 w-6 fill-current"
@@ -28,8 +28,8 @@ export function MenuToggle({ onToggle }: MenuToggleProps) {
           <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
         </svg>
       </button>
-    </div >
+    </div>
   );
 }
 
-export default MenuToggle;
+export default NavBarToggle;

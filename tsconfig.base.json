@@ -10,24 +10,14 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@cocinista/auth": [
-        "libs/shared/auth/src/index.ts"
-      ],
-      "@cocinista/shell": [
-        "libs/shell/src/index.ts"
-      ]
+      "@cocinista/auth": ["libs/shared/auth/src/index.ts"],
+      "@cocinista/shell": ["libs/shell/src/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }
