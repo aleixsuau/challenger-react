@@ -1,19 +1,19 @@
 {
-  "name": "cocinista-e2e",
+  "name": "challenger-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/cocinista-e2e/src",
+  "sourceRoot": "apps/challenger-e2e/src",
   "projectType": "application",
   "targets": {
     "e2e": {
       "executor": "@nrwl/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/cocinista-e2e/cypress.config.ts",
-        "devServerTarget": "cocinista:serve:development",
+        "cypressConfig": "apps/challenger-e2e/cypress.config.ts",
+        "devServerTarget": "challenger:serve:development",
         "testingType": "e2e"
       },
       "configurations": {
         "production": {
-          "devServerTarget": "cocinista:serve:production"
+          "devServerTarget": "challenger:serve:production"
         }
       }
     },
@@ -21,10 +21,10 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/cocinista-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": ["apps/challenger-e2e/**/*.{js,ts}"]
       }
     }
   },
   "tags": [],
-  "implicitDependencies": ["cocinista"]
+  "implicitDependencies": ["challenger"]
 }

@@ -7,7 +7,7 @@ const mockedUser = {
   photoURL: 'mockedPhoto',
   email: '',
 };
-jest.mock('@cocinista/auth', () => {
+jest.mock('@challenger/auth', () => {
   const useAuth = jest.fn(() => {
     return {
       user: mockedUser,

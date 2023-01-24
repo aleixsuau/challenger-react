@@ -1,5 +1,5 @@
 import styles from './Brand.module.scss';
-import logo from './cocinista.png';
+import logo from './challenger.png';
 
 /* eslint-disable-next-line */
 export interface BrandProps {
@@ -15,7 +15,7 @@ export function Brand({ title }: BrandProps) {
     >
       <img
         src={logo}
-        alt="Cocinista Logo"
+        alt="challenger Logo"
         className="mr-4 h-8 w-8"
         data-testid="logo"
       />

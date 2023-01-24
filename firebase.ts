@@ -2,19 +2,22 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDw-qG_9kJFtugVTLdm5pe5QttV-KHdmO0",
-  authDomain: "cocinista-47e10.firebaseapp.com",
-  projectId: "cocinista-47e10",
-  storageBucket: "cocinista-47e10.appspot.com",
-  messagingSenderId: "406418803972",
-  appId: "1:406418803972:web:435bcb63ef44e073ec9451"
+  apiKey: "AIzaSyC52Rf5YAFlQb-DRAqe7MuuQ5ySNnsIcvo",
+  authDomain: "challenger-af1a0.firebaseapp.com",
+  projectId: "challenger-af1a0",
+  storageBucket: "challenger-af1a0.appspot.com",
+  messagingSenderId: "1045201289647",
+  appId: "1:1045201289647:web:6d5d9c0c420da3121eaf5a"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Initialize Firebase Authentication and get a reference to the service
+// Initialize Firebase
 export const auth = getAuth(app);
 export default app;

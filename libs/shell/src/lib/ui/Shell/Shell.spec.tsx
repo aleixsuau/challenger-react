@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 import Shell, { ShellConfigProps } from './Shell';
 import '@testing-library/jest-dom';
 
-jest.mock('@cocinista/auth', () => {
+jest.mock('@challenger/auth', () => {
   const useAuth = jest.fn(() => {
     return {
       user: {},
@@ -17,7 +17,7 @@ jest.mock('@cocinista/auth', () => {
 });
 
 const shellConfigProps: ShellConfigProps = {
-  title: 'cocinista',
+  title: 'challenger',
   navbar: {
     sections: [
       {

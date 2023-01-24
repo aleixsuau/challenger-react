@@ -1,20 +1,18 @@
 import styles from './UserMenu.module.scss';
-import { useAuth } from '@cocinista/auth';
+import { useAuth } from '@challenger/auth';
 import { Menu } from '@headlessui/react';
-import { Section } from '@cocinista/shell';
+import { Section } from '@challenger/shell';
 
 /* eslint-disable-next-line */
 export interface UserMenuConfig {
   sections: Section[];
 }
 
-export interface UserMenuProps extends UserMenuConfig {}
-
 export interface NavBarConfig {
   sections: Section[];
 }
 
-export function UserMenu({ sections }: UserMenuProps) {
+export function UserMenu({ sections }: UserMenuConfig) {
   const user = useAuth()?.user;
 
   return (
@@ -23,9 +21,8 @@ export function UserMenu({ sections }: UserMenuProps) {
         <>
           <Menu.Button
             data-testid="toggle"
-            className={`flex items-center rounded-full text-sm font-medium text-gray-500 outline-none hover:text-gray-900 hover:ring-4 hover:ring-gray-100 focus:ring-4 focus:ring-gray-100 md:mr-0 ${
-              open ? 'ring-4 ring-gray-100' : ''
-            }`}
+            className={`flex items-center rounded-full text-sm font-medium text-gray-500 outline-none hover:text-gray-900 hover:ring-4 hover:ring-gray-100 focus:ring-4 focus:ring-gray-100 md:mr-0 ${open ? 'ring-4 ring-gray-100' : ''
+              }`}
             type="button"
           >
             <span className="sr-only">Open user menu</span>
@@ -95,9 +92,8 @@ export function UserMenu({ sections }: UserMenuProps) {
                 {({ active }) => (
                   <a
                     href={section.link}
-                    className={`block px-4 py-2 capitalize ${
-                      active ? 'bg-gray-100' : ''
-                    }`}
+                    className={`block px-4 py-2 capitalize ${active ? 'bg-gray-100' : ''
+                      }`}
                   >
                     {section.text}
                   </a>

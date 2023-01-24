@@ -1,10 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { AuthProvider } from '@cocinista/auth';
-import { Shell, ShellConfigProps } from '@cocinista/shell';
+import { AuthProvider } from '@challenger/auth';
+import { Shell, ShellConfigProps } from '@challenger/shell';
 import styles from './app.module.scss';
 
 const shellConfigProps: ShellConfigProps = {
-  title: 'cocinista',
+  title: 'challenger',
   navbar: {
     sections: [
       {

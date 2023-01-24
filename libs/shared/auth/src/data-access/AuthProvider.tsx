@@ -1,8 +1,13 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { onAuthStateChanged, User, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import {
+  onAuthStateChanged,
+  User,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+} from 'firebase/auth';
 import { AuthProviderAPI, AuthProviderProps } from '../typings';
 import { auth } from '../../../../../firebase';
-
 
 const AuthContext = createContext<AuthProviderAPI | undefined>(undefined);
 
@@ -14,13 +19,13 @@ export const useAuth = () => {
   }
 
   return context;
-}
+};
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const unsubscribeFn = onAuthStateChanged(auth, user => {
+    const unsubscribeFn = onAuthStateChanged(auth, (user) => {
       setUser(user);
     });
 
@@ -43,7 +48,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
 const loginWithGoogle = () => {
   const provider = new GoogleAuthProvider();
 
-  return signInWithPopup(auth, provider);
-}
+  signInWithPopup(auth, provider);
+};
 
-const logout = () => signOut(auth);
+const logout = () => {
+  signOut(auth);
+};

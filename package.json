@@ -1,5 +1,5 @@
 {
-  "name": "cocinista",
+  "name": "challenger",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {},
@@ -23,7 +23,6 @@
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
-    "@types/react-router-dom": "5.3.3",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
     "autoprefixer": "10.4.13",
@@ -37,7 +36,7 @@
     "eslint-plugin-react": "7.31.11",
     "eslint-plugin-react-hooks": "4.6.0",
     "jest": "28.1.1",
-    "jest-environment-jsdom": "28.1.1",
+    "jest-environment-jsdom": "^29.4.0",
     "nx": "15.4.5",
     "postcss": "8.4.19",
     "prettier-plugin-tailwindcss": "^0.2.1",
