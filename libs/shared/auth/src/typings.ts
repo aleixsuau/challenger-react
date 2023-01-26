@@ -1,11 +1,11 @@
-import { User, signInWithPopup, signOut } from "firebase/auth";
+import { User } from 'firebase/auth';
 
 export interface AuthProviderProps {
   children: React.ReactNode | React.ReactNode[];
 }
 
 export interface AuthProviderAPI {
-  user: User | null,
-  loginWithGoogle: typeof signInWithPopup,
-  logout: typeof signOut,
+  user: User | null;
+  loginWithGoogle: () => void;
+  logout: () => void;
 }

@@ -9,7 +9,6 @@ import Brand from '../Brand/Brand';
 export interface ShellConfigProps {
   title: string;
   navbar: NavBarConfig;
-  userMenu: UserMenuConfig;
   children?: React.ReactNode;
 }
 
@@ -19,7 +18,7 @@ export interface Section {
   icon?: string;
 }
 
-export function Shell({ title, navbar, userMenu, children }: ShellConfigProps) {
+export function Shell({ title, navbar, children }: ShellConfigProps) {
   const [navbarIsOpen, setNavbarIsOpen] = useState(false);
   const handleNavbarToggle = () => setNavbarIsOpen((isOpen) => !isOpen);
 
@@ -29,7 +28,7 @@ export function Shell({ title, navbar, userMenu, children }: ShellConfigProps) {
         <NavBarToggle onToggle={handleNavbarToggle} />
         <Brand title={title} />
         <NavBar sections={navbar.sections} />
-        <UserMenu sections={userMenu?.sections} />
+        <UserMenu />
         <NavBar
           sections={navbar.sections}
           isOpen={navbarIsOpen}

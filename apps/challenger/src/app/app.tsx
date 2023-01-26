@@ -19,20 +19,6 @@ const shellConfigProps: ShellConfigProps = {
       },
     ],
   },
-  userMenu: {
-    sections: [
-      {
-        text: 'settings',
-        link: 'settings',
-        icon: 'settings',
-      },
-      {
-        text: 'signout',
-        link: 'signout',
-        icon: 'signout',
-      },
-    ],
-  },
 };
 
 export function App() {
@@ -41,7 +27,6 @@ export function App() {
       <Shell
         title={shellConfigProps.title}
         navbar={shellConfigProps.navbar}
-        userMenu={shellConfigProps.userMenu}
       ></Shell>
     </AuthProvider>
   );

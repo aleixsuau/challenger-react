@@ -12,22 +12,25 @@ export interface NavBarConfig {
   sections: Section[];
 }
 
-export function UserMenu({ sections }: UserMenuConfig) {
-  const user = useAuth()?.user;
+export function UserMenu() {
+  const { user, loginWithGoogle, logout } = useAuth();
 
-  return (
-    <Menu as="div" className="relative ml-auto" data-testid="user-menu">
+  return user ? (
+    <Menu
+      as="div"
+      className="relative ml-auto basis-44"
+      data-testid="user-menu"
+    >
       {({ open }) => (
         <>
           <Menu.Button
             data-testid="toggle"
-            className={`flex items-center rounded-full text-sm font-medium text-gray-500 outline-none hover:text-gray-900 hover:ring-4 hover:ring-gray-100 focus:ring-4 focus:ring-gray-100 md:mr-0 ${open ? 'ring-4 ring-gray-100' : ''
-              }`}
+            className={`button-secondary ${open ? 'bg-secondary-dark' : ''}`}
             type="button"
           >
             <span className="sr-only">Open user menu</span>
             <svg
-              className="mx-1.5 h-4 w-4"
+              className="mr-2 h-6 w-6"
               aria-hidden="true"
               fill="currentColor"
               viewBox="0 0 20 20"
@@ -42,7 +45,7 @@ export function UserMenu({ sections }: UserMenuConfig) {
             <span className="truncate">{user?.displayName}</span>
             {user?.photoURL ? (
               <img
-                className="ml-3 h-8 w-8 rounded-full ring-4 ring-gray-100"
+                className="ring-secondary-light ml-3 h-8 w-8 rounded-full ring-2"
                 src={user?.photoURL}
                 alt="user profile"
               />
@@ -82,28 +85,38 @@ export function UserMenu({ sections }: UserMenuConfig) {
 
           <Menu.Items
             data-testid="dropdown"
-            className="absolute right-0 z-30 mt-2 w-44 divide-y divide-gray-100 rounded bg-white text-sm shadow-md outline-none"
+            className="text-primary absolute left-0 z-30 mt-2 w-44 divide-y divide-gray-100 rounded bg-white text-sm shadow-md outline-none"
           >
             <div className="px-4 py-3">
               <div className="truncate font-medium italic">{user?.email}</div>
             </div>
-            {sections?.map((section) => (
-              <Menu.Item key={section.link}>
-                {({ active }) => (
-                  <a
-                    href={section.link}
-                    className={`block px-4 py-2 capitalize ${active ? 'bg-gray-100' : ''
-                      }`}
-                  >
-                    {section.text}
-                  </a>
-                )}
-              </Menu.Item>
-            ))}
+            <Menu.Item>
+              {({ active }) => (
+                <span
+                  className={`block cursor-pointer px-4 py-2 capitalize ${
+                    active ? 'bg-gray-100' : ''
+                  }`}
+                  onClick={logout}
+                >
+                  Sign out
+                </span>
+              )}
+            </Menu.Item>
           </Menu.Items>
         </>
       )}
     </Menu>
+  ) : (
+    <div className="ml-auto flex basis-44">
+      <button
+        data-testid="toggle"
+        className="button-secondary basis-full"
+        type="button"
+        onClick={loginWithGoogle}
+      >
+        START
+      </button>
+    </div>
   );
 }
 

@@ -15,7 +15,7 @@ export function NavBarItem({ section, vertical }: NavBarItemProps) {
       data-testid="navbar-item"
     >
       <a
-        className="inline-block py-2 px-4 text-xl uppercase text-black no-underline hover:text-gray-800 hover:underline hover:decoration-4"
+        className="button-default"
         href={section.link}
         data-testid="navbar-item-link"
       >

@@ -11,7 +11,7 @@ export function Header({ children }: HeaderProps) {
       className="fixed top-0 z-30 w-full text-black"
       data-testid="header"
     >
-      <div className="container mx-auto mt-0 flex w-full flex-wrap items-center py-2">
+      <div className="container mx-auto flex w-full flex-wrap items-center py-3">
         {children}
       </div>
     </header>
