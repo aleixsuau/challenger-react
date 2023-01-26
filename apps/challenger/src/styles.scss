@@ -1,4 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
-@tailwind components;
 @tailwind base;
+@tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .button-default {
+    @apply flex h-12 items-center justify-center rounded px-6 py-3 text-sm font-bold uppercase text-primary bg-white outline-none transition-all duration-150 ease-linear hover:text-primary-dark hover:shadow-sm focus:outline-none;
+  }
+
+  .button-primary {
+    @apply button-default;
+    @apply text-white shadow bg-primary hover:text-white hover:bg-primary-dark;
+  }
+
+  .button-secondary {
+    @apply button-default;
+    @apply text-white shadow bg-secondary hover:text-white hover:bg-secondary-dark;
+  }
+
+  .button-accent {
+    @apply button-default;
+    @apply text-white shadow bg-accent hover:text-white hover:bg-accent-dark;
+  }
+}
