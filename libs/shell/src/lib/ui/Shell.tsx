@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import styles from './Shell.module.scss';
-import Header from '../Header/Header';
-import NavBar, { NavBarConfig } from '../NavBar/NavBar';
-import UserMenu, { UserMenuConfig } from '../UserMenu/UserMenu';
-import NavBarToggle from '../NavBar/NavBarToggle/NavBarToggle';
-import Brand from '../Brand/Brand';
+import Header from './Header/Header';
+import NavBar, { NavBarConfig } from './NavBar/NavBar';
+import UserMenu from './UserMenu/UserMenu';
+import NavBarToggle from './NavBar/NavBarToggle/NavBarToggle';
+import Brand from './Brand/Brand';
 
 export interface ShellConfigProps {
   title: string;

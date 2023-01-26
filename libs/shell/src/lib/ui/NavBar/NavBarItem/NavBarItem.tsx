@@ -1,4 +1,4 @@
-import { Section } from '../../Shell/Shell';
+import { Section } from '../../Shell';
 import styles from './NavBarItem.module.scss';
 
 /* eslint-disable-next-line */

@@ -32,20 +32,6 @@ const shellConfigProps: ShellConfigProps = {
       },
     ],
   },
-  userMenu: {
-    sections: [
-      {
-        text: 'settings',
-        link: 'settings',
-        icon: 'settings',
-      },
-      {
-        text: 'signout',
-        link: 'signout',
-        icon: 'signout',
-      },
-    ],
-  },
 };
 
 describe('Shell', () => {
@@ -54,7 +40,6 @@ describe('Shell', () => {
       <Shell
         title={shellConfigProps.title}
         navbar={shellConfigProps.navbar}
-        userMenu={shellConfigProps.userMenu}
       >
         <div data-testid="children-content"></div>
       </Shell>
@@ -78,7 +63,6 @@ describe('Shell', () => {
       <Shell
         title={shellConfigProps.title}
         navbar={shellConfigProps.navbar}
-        userMenu={shellConfigProps.userMenu}
       >
         <div data-testid="children-content"></div>
       </Shell>
