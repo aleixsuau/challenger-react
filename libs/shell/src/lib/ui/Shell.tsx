@@ -5,6 +5,7 @@ import NavBar, { NavBarConfig } from './NavBar/NavBar';
 import UserMenu from './UserMenu/UserMenu';
 import NavBarToggle from './NavBar/NavBarToggle/NavBarToggle';
 import Brand from './Brand/Brand';
+import { ChallengeCreateButton } from '@challenger/challenge';
 
 export interface ShellConfigProps {
   title: string;
@@ -28,6 +29,7 @@ export function Shell({ title, navbar, children }: ShellConfigProps) {
         <NavBarToggle onToggle={handleNavbarToggle} />
         <Brand title={title} />
         <NavBar sections={navbar.sections} />
+        <ChallengeCreateButton />
         <UserMenu />
         <NavBar
           sections={navbar.sections}
@@ -36,7 +38,6 @@ export function Shell({ title, navbar, children }: ShellConfigProps) {
         />
       </Header>
 
-      {/* Children container */}
       <main className="pt-20" data-testid="shell-container">
         {children}
       </main>

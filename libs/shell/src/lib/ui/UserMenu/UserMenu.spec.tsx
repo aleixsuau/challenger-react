@@ -7,7 +7,7 @@ const mockedUser = {
   photoURL: 'mockedPhoto',
   email: '',
 };
-jest.mock('@challenger/auth', () => {
+jest.mock('@challenger/shared/auth', () => {
   const useAuth = jest.fn(() => {
     return {
       user: mockedUser,
@@ -39,17 +39,17 @@ describe('UserMenu', () => {
 
   describe('Toggle button', () => {
     it('should display the user name and picture', () => {
-      const { getByTestId } = render(<UserMenu sections={userMenu.sections} />);
+      const { getByTestId } = render(<UserMenu />);
       const toggle = getByTestId('toggle');
-      const toggleText = toggle.textContent;
-      const toggleImg = toggle.querySelector('img')?.getAttribute('src');
+      const toggleText = toggle?.textContent;
+      const toggleImg = toggle?.querySelector('img')?.getAttribute('src');
 
       expect(toggleText).toContain(mockedUser.displayName);
       expect(toggleImg).toBe(mockedUser.photoURL);
     });
 
     it('should render the toggle button', () => {
-      const { getByTestId } = render(<UserMenu sections={userMenu.sections} />);
+      const { getByTestId } = render(<UserMenu />);
       const toggle = getByTestId('toggle');
 
       expect(toggle).toBeTruthy();
@@ -57,15 +57,15 @@ describe('UserMenu', () => {
 
     it('should toggle the user dropdown', () => {
       const { getByTestId, queryByTestId } = render(
-        <UserMenu sections={userMenu.sections} />
+        <UserMenu />
       );
       const toggle = getByTestId('toggle');
 
-      act(() => toggle.click());
+      act(() => toggle?.click());
 
       expect(getByTestId('dropdown')).toBeVisible();
 
-      act(() => toggle.click());
+      act(() => toggle?.click());
 
       expect(queryByTestId('dropdown')).not.toBeInTheDocument();
     });
@@ -73,10 +73,10 @@ describe('UserMenu', () => {
 
   describe('Dropdown', () => {
     it('should diaplay the user`s email', () => {
-      const { getByTestId } = render(<UserMenu sections={userMenu.sections} />);
+      const { getByTestId } = render(<UserMenu />);
       const toggle = getByTestId('toggle');
 
-      act(() => toggle.click());
+      act(() => toggle?.click());
 
       expect(getByTestId('dropdown')?.querySelector('div')?.textContent).toBe(
         mockedUser.email
@@ -84,10 +84,10 @@ describe('UserMenu', () => {
     });
 
     it('should show one item per section in the user dropdown', () => {
-      const { getByTestId } = render(<UserMenu sections={userMenu.sections} />);
+      const { getByTestId } = render(<UserMenu />);
       const toggle = getByTestId('toggle');
 
-      act(() => toggle.click());
+      act(() => toggle?.click());
 
       const dropdownItems = getByTestId('dropdown')?.querySelectorAll('a');
 

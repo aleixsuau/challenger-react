@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 import Shell, { ShellConfigProps } from './Shell';
 import '@testing-library/jest-dom';
 
-jest.mock('@challenger/auth', () => {
+jest.mock('@challenger/shared/auth', () => {
   const useAuth = jest.fn(() => {
     return {
       user: {},
@@ -13,6 +13,15 @@ jest.mock('@challenger/auth', () => {
 
   return {
     useAuth,
+  };
+});
+
+jest.mock('@challenger/challenge', () => {
+  const useChallenge = jest.fn();
+
+  return {
+    useChallenge,
+    ChallengeCreateButton: () => (<></>)
   };
 });
 

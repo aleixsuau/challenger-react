@@ -1,5 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { AuthProvider } from '@challenger/auth';
+import { AuthProvider } from '@challenger/shared/auth';
+import { ChallengeProvider } from '@challenger/challenge';
 import { Shell, ShellConfigProps } from '@challenger/shell';
 import styles from './app.module.scss';
 
@@ -24,10 +25,12 @@ const shellConfigProps: ShellConfigProps = {
 export function App() {
   return (
     <AuthProvider>
-      <Shell
-        title={shellConfigProps.title}
-        navbar={shellConfigProps.navbar}
-      ></Shell>
+      <ChallengeProvider>
+        <Shell
+          title={shellConfigProps.title}
+          navbar={shellConfigProps.navbar}
+        ></Shell>
+      </ChallengeProvider>
     </AuthProvider>
   );
 }

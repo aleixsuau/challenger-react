@@ -15,7 +15,14 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@challenger/auth": ["libs/shared/auth/src/index.ts"],
+      "@challenger/challenge": ["libs/challenge/src/index.ts"],
+      "@challenger/shared/auth": ["libs/shared/auth/src/index.ts"],
+      "@challenger/shared/data-access/ddbb": [
+        "libs/shared/data-access/ddbb/src/index.ts"
+      ],
+      "@challenger/shared/util/typings": [
+        "libs/shared/util/typings/src/index.ts"
+      ],
       "@challenger/shell": ["libs/shell/src/index.ts"]
     }
   },
