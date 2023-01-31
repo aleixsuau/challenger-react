@@ -4,22 +4,23 @@
 @tailwind utilities;
 
 @layer components {
-  .button-default {
-    @apply flex h-12 items-center justify-center rounded px-6 py-3 text-sm font-bold uppercase text-primary bg-white outline-none transition-all duration-150 ease-linear hover:text-primary-dark hover:shadow-sm focus:outline-none;
+  .button {
+    @apply flex h-12 items-center justify-center rounded-full px-6 py-3 text-sm font-bold uppercase text-primary bg-white outline-none transition-all duration-150 ease-linear hover:text-primary-dark hover:shadow-sm focus:outline-none;
   }
 
-  .button-primary {
-    @apply button-default;
+  .button.primary {
     @apply text-white shadow bg-primary hover:text-white hover:bg-primary-dark;
   }
 
-  .button-secondary {
-    @apply button-default;
+  .button.secondary {
     @apply text-white shadow bg-secondary hover:text-white hover:bg-secondary-dark;
   }
 
-  .button-accent {
-    @apply button-default;
+  .button.accent {
     @apply text-white shadow bg-accent hover:text-white hover:bg-accent-dark;
+  }
+
+  .input {
+    @apply px-3 py-4 placeholder-primary-light text-primary relative bg-white rounded text-base border border-slate-300 outline-none focus:outline-none focus:ring w-full;
   }
 }

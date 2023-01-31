@@ -15,7 +15,7 @@ export function NavBarItem({ section, vertical }: NavBarItemProps) {
       data-testid="navbar-item"
     >
       <a
-        className="button-default"
+        className="button"
         href={section.link}
         data-testid="navbar-item-link"
       >

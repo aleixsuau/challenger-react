@@ -1,5 +1,5 @@
 import styles from './UserMenu.module.scss';
-import { useAuth } from '@challenger/auth';
+import { useAuth } from '@challenger/shared/auth';
 import { Menu } from '@headlessui/react';
 import { Section } from '@challenger/shell';
 
@@ -18,14 +18,14 @@ export function UserMenu() {
   return user ? (
     <Menu
       as="div"
-      className="relative ml-auto basis-44"
+      className="relative basis-44"
       data-testid="user-menu"
     >
       {({ open }) => (
         <>
           <Menu.Button
             data-testid="toggle"
-            className={`button-secondary ${open ? 'bg-secondary-dark' : ''}`}
+            className={`button secondary ${open ? 'bg-secondary-dark' : ''}`}
             type="button"
           >
             <span className="sr-only">Open user menu</span>
@@ -107,16 +107,14 @@ export function UserMenu() {
       )}
     </Menu>
   ) : (
-    <div className="ml-auto flex basis-44">
-      <button
-        data-testid="toggle"
-        className="button-secondary basis-full"
-        type="button"
-        onClick={loginWithGoogle}
-      >
-        START
-      </button>
-    </div>
+    <button
+      data-testid="toggle"
+      className="button secondary basis-44"
+      type="button"
+      onClick={loginWithGoogle}
+    >
+      START
+    </button>
   );
 }
 

@@ -7,7 +7,7 @@ module.exports = {
   content: [
     join(
       __dirname,
-      '{src,pages,components}/**/*!(*.stories|*.spec).{ts,tsx,html}'
+      'src/**/*!(*.stories|*.spec).{ts,tsx,html}'
     ),
     ...createGlobPatternsForDependencies(__dirname),
   ],
@@ -15,8 +15,8 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: colors.gray['500'],
-          light: colors.gray['300'],
+          DEFAULT: colors.gray['600'],
+          light: colors.gray['400'],
           dark: colors.gray['800'],
         },
         secondary: {

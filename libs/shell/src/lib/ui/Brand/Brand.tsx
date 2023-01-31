@@ -9,7 +9,7 @@ export interface BrandProps {
 export function Brand({ title }: BrandProps) {
   return (
     <a
-      className="flex items-center text-2xl font-bold uppercase text-black no-underline hover:no-underline lg:text-4xl"
+      className="flex items-center mr-auto text-2xl font-bold uppercase text-black no-underline hover:no-underline lg:text-4xl"
       href="/"
       data-testid="brand"
     >
