@@ -17,6 +17,7 @@ module.exports = {
         primary: {
           DEFAULT: colors.gray['600'],
           light: colors.gray['400'],
+          background: colors.gray['100'],
           dark: colors.gray['800'],
         },
         secondary: {
@@ -28,6 +29,11 @@ module.exports = {
           DEFAULT: colors.pink['500'],
           light: colors.pink['300'],
           dark: colors.pink['800'],
+        },
+        error: {
+          DEFAULT: colors.red['500'],
+          light: colors.red['300'],
+          dark: colors.red['800'],
         },
       },
     },

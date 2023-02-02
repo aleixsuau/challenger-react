@@ -1,56 +1,35 @@
-
-export interface Member {
-  displayName: string;
-  email: string;
-  emailVerified: boolean;
-  phoneNumber: number;
-  photoURL: string;
-  providerData: MemberProviderData;
-  uid: string;
-}
-
-export interface MemberProviderData {
-  displayName: string;
-  email: string;
-  photoURL: string;
-  providerId: string;
-  uid: string;
-}
-
-export interface Image {
-  title: string;
-  url: string;
-}
+import { Member, Image } from '@challenger/shared/util/typings';
 
 export interface Challenge {
   uid?: string;
-  host: Member;
+  host?: Member;
   title: string;
   description: string;
   milestones: Milestone[];
+  date?: ChallengeDateRange;
   // TODO: Implement in phase 2
   images?: Image[];
 }
 
 export interface Milestone {
-  uid: string;
   title: string;
   description: string;
-  images: Image[];
   location: MilestoneLocation
-  date: MilestoneDateRange;
+  date: ChallengeDateRange;
+  badge?: Image;
+  image?: Image;
   // TODO: Implement in phase 2
   repetition?: MilestoneRepetition
 }
 
-export interface MilestoneDateRange {
-  from: MilestoneDate;
-  to: MilestoneDate;
+export interface ChallengeDateRange {
+  start: ChallengeDate;
+  end: ChallengeDate;
 }
 
-export interface MilestoneDate {
-  date: number;
+export interface ChallengeDate {
   time: number;
+  timezone: string;
 }
 
 export interface MilestoneRepetition {
