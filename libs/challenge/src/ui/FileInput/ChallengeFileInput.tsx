@@ -1,0 +1,58 @@
+import { uploadFile } from '@challenger/shared/data-access/ddbb';
+import { Challenge } from 'libs/challenge/src/typings';
+import { ChangeEvent, useState } from 'react';
+import { UseFormReturn } from 'react-hook-form';
+import styles from './ChallengeFileInput.module.scss';
+
+/* eslint-disable-next-line */
+export interface FileInputProps {
+  // TODO: type this
+  label: string;
+  name: any;
+  register: any;
+  onChange: UseFormReturn<Challenge>['setValue'];
+  required?: boolean;
+  trigger: any;
+}
+
+export function FileInput({
+  name,
+  label,
+  register,
+  onChange,
+  required,
+  trigger,
+}: FileInputProps) {
+  const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event?.target?.files?.[0];
+    const fileDDBBUrlResult = await uploadFile(file);
+
+    onChange(name, fileDDBBUrlResult);
+    trigger(name);
+  };
+
+  return (
+    <>
+      <input
+        type="hidden"
+        {...register(name, { required: required && 'This field is required' })}
+        data-testid="source-input"
+      />
+      <label>
+        <span>
+          {label}
+          {required && ' *'}
+        </span>
+        <input
+          type="file"
+          className="input"
+          onChange={handleChange}
+          required={required}
+          data-testid="input-file"
+        />
+      </label>
+    </>
+  );
+}
+
+export default FileInput;
