@@ -7,19 +7,18 @@ export interface Challenge {
   description: string;
   milestones: Milestone[];
   date?: ChallengeDateRange;
-  // TODO: Implement in phase 2
-  images?: Image[];
+  image?: string;
 }
 
 export interface Milestone {
   title: string;
   description: string;
-  location: MilestoneLocation
+  location: MilestoneLocation;
   date: ChallengeDateRange;
-  badge?: Image;
-  image?: Image;
+  badge?: string;
+  image?: string;
   // TODO: Implement in phase 2
-  repetition?: MilestoneRepetition
+  repetition?: MilestoneRepetition;
 }
 
 export interface ChallengeDateRange {
@@ -35,8 +34,12 @@ export interface ChallengeDate {
 export interface MilestoneRepetition {
   every: {
     interval: number;
-    period: MilestoneDayPeriod | MilestoneWeekPeriod | MilestoneMonthPeriod | MilestoneYearPeriod;
-  }
+    period:
+      | MilestoneDayPeriod
+      | MilestoneWeekPeriod
+      | MilestoneMonthPeriod
+      | MilestoneYearPeriod;
+  };
   end: MilestoneRepetitionEnd;
 }
 
@@ -46,12 +49,51 @@ export interface MilestoneDayPeriod {
 
 export interface MilestoneWeekPeriod {
   type: 'week';
-  day: 'sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday';
+  day:
+    | 'sunday'
+    | 'monday'
+    | 'tuesday'
+    | 'wednesday'
+    | 'thursday'
+    | 'friday'
+    | 'saturday';
 }
 
 export interface MilestoneMonthPeriod {
   type: 'month';
-  day: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31;
+  day:
+    | 0
+    | 1
+    | 2
+    | 3
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12
+    | 13
+    | 14
+    | 15
+    | 16
+    | 17
+    | 18
+    | 19
+    | 20
+    | 21
+    | 22
+    | 23
+    | 24
+    | 25
+    | 26
+    | 27
+    | 28
+    | 29
+    | 30
+    | 31;
 }
 
 export interface MilestoneYearPeriod {

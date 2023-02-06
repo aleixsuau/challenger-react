@@ -1,8 +1,8 @@
-import ChallengeForm from "../../ui/Form/ChallengeForm";
-import { createContext, useContext, useState } from "react";
-import { Challenge } from "../../typings";
-import { addDocument } from "@challenger/shared/data-access/ddbb";
- 
+import ChallengeForm from '../../ui/Form/ChallengeForm';
+import { createContext, useContext, useState } from 'react';
+import { Challenge } from '../../typings';
+import { addDocument } from '@challenger/shared/data-access/ddbb';
+
 const ChallengeContext = createContext<ChallengeContext | undefined>(undefined);
 
 export const useChallenge = () => {
@@ -15,20 +15,26 @@ export const useChallenge = () => {
   return context;
 };
 
-export function ChallengeProvider({children}: ProviderProps) {
+export function ChallengeProvider({ children }: ProviderProps) {
   const [showForm, setShowForm] = useState(false);
 
   const create = () => {
     setShowForm(true);
   };
   const save = async (challenge: Partial<Challenge>) => {
-    addDocument('challenges', challenge).catch((error) => console.error("Error adding document: ", error));
+    addDocument('challenges', challenge).catch((error) =>
+      console.error('Error adding document: ', error)
+    );
   };
 
   return (
     <ChallengeContext.Provider value={{ create }}>
       {children}
-      <ChallengeForm show={showForm} onSave={save} onClose={() => setShowForm(false)} />
+      <ChallengeForm
+        show={showForm}
+        onSubmit={save}
+        onClose={() => setShowForm(false)}
+      />
     </ChallengeContext.Provider>
   );
 }
