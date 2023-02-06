@@ -20,6 +20,7 @@
       "@challenger/shared/data-access/ddbb": [
         "libs/shared/data-access/ddbb/src/index.ts"
       ],
+      "@challenger/shared/ui": ["libs/shared/ui/src/index.ts"],
       "@challenger/shared/util/typings": [
         "libs/shared/util/typings/src/index.ts"
       ],
