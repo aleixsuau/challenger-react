@@ -2,6 +2,7 @@ import { Challenge, ChallengeDate } from '../../typings';
 import { ChangeEvent, useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import styles from './ChallengeDateInput.module.scss';
+import InputValidationError from '../InputValidationError/ChallengeInputValidationError';
 
 export interface DateInputProps {
   // TODO: type this
@@ -9,11 +10,12 @@ export interface DateInputProps {
   legend: string;
   register: any;
   onChange: UseFormReturn<Challenge>['setValue'];
+  trigger: any;
   validate?: (date: number) => boolean | string;
   disabled?: boolean;
   required?: boolean;
   min?: number | string;
-  trigger: any;
+  error?: string;
 }
 
 export function DateInput({
@@ -26,6 +28,7 @@ export function DateInput({
   min,
   disabled,
   trigger,
+  error
 }: DateInputProps) {
   const [date, setDate] = useState({
     date: '',
@@ -62,38 +65,43 @@ export function DateInput({
           validate: (date: number) => validate && validate(date),
         })}
       />
-      <fieldset className="flex flex-wrap gap-4">
-        <legend>
+      <fieldset>
+        <legend className="input-label">
           {legend} {required && '*'}
         </legend>
-        <label>
-          <input
-            type="date"
-            className="input"
-            name="date"
-            value={date.date}
-            disabled={disabled}
-            required={required}
-            onChange={handleChange}
-            aria-label="Start date"
-            data-testid="input-date"
-            min={minValue}
-          />
-        </label>
-        <label>
-          <input
-            type="time"
-            step="900"
-            className="input"
-            name="time"
-            value={date.time}
-            disabled={disabled}
-            required={required}
-            onChange={handleChange}
-            aria-label="Start time"
-            data-testid="input-time"
-          />
-        </label>
+        <div className="flex flex-wrap gap-4">
+          <label>
+            <input
+              type="date"
+              className="input"
+              name="date"
+              value={date.date}
+              disabled={disabled}
+              required={required}
+              onChange={handleChange}
+              aria-label="Start date"
+              data-testid="input-date"
+              min={minValue}
+            />
+          </label>
+          <label>
+            <input
+              type="time"
+              step="900"
+              className="input"
+              name="time"
+              value={date.time}
+              disabled={disabled}
+              required={required}
+              onChange={handleChange}
+              aria-label="Start time"
+              data-testid="input-time"
+            />
+          </label>
+        </div>        
+        <div className="basis-full">
+          <InputValidationError error={error} />
+        </div>
       </fieldset>
     </>
   );

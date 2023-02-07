@@ -17,7 +17,7 @@ export function Dialog({ show, title, onClose, children }: DialogProps) {
         className="fixed inset-0 z-40 bg-black opacity-25"
       ></div>
 
-      <HeadlessUIDialog.Panel className="fixed inset-0 z-50 my-40 mx-auto max-w-xl items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none">
+      <HeadlessUIDialog.Panel className="fixed inset-0 z-50 my-40 mx-auto max-w-5xl items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none">
         <div className="relative w-full rounded-lg border-0 bg-white shadow-lg outline-none focus:outline-none">
           <div className="flex flex-col">
             <div className="flex items-start justify-between border-b border-solid border-slate-200 p-5">

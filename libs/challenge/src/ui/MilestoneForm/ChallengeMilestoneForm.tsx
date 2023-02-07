@@ -3,6 +3,7 @@ import { FieldArrayWithId, UseFormReturn } from 'react-hook-form';
 import styles from './ChallengeMilestoneForm.module.scss';
 import DateInput from '../DateInput/ChallengeDateInput';
 import FileInput from '../FileInput/ChallengeFileInput';
+import InputValidationError from '../InputValidationError/ChallengeInputValidationError';
 
 /* eslint-disable-next-line */
 // TODO: add types
@@ -20,10 +21,10 @@ export function MilestoneForm({ index, milestone, register, onChange, onDelete, 
   return (
     <div
       key={milestone.id}
-      className="bg-primary-background flex flex-col gap-4 rounded-sm p-4"
+      className="bg-primary-background flex flex-col gap-8 rounded-sm p-4"
     >
-      <label>
-        <span>Title</span>
+      <label>        
+        <span className="input-label">Title *</span>
         <input
           key={milestone.id}
           {...register(`milestones.${index}.title`, {
@@ -39,12 +40,10 @@ export function MilestoneForm({ index, milestone, register, onChange, onDelete, 
           })}
           className="input"
         />
-      </label>
-      <p className="text-error pt-2 text-sm">
-        {errors.milestones?.[index]?.title?.message}
-      </p>
+        <InputValidationError error={errors.milestones?.[index]?.title?.message} />
+      </label>      
       <label>
-        <span>Description</span>
+        <span className="input-label">Description *</span>
         <input
           key={milestone.id}
           {...register(`milestones.${index}.description`, {
@@ -60,12 +59,10 @@ export function MilestoneForm({ index, milestone, register, onChange, onDelete, 
           })}
           className="input"
         />
-      </label>
-      <p className="text-error pt-2 text-sm">
-        {errors.milestones?.[index]?.description?.message}
-      </p>
+        <InputValidationError error={errors.milestones?.[index]?.description?.message} />
+      </label>      
       <label>
-        <span>Meeting URL</span>
+        <span className="input-label">Meeting URL *</span>
         <input
           type="url"
           key={milestone.id}
@@ -74,10 +71,8 @@ export function MilestoneForm({ index, milestone, register, onChange, onDelete, 
           })}
           className="input"
         />
-      </label>
-      <p className="text-error pt-2 text-sm">
-        {errors.milestones?.[index]?.location?.url?.message}
-      </p>
+        <InputValidationError error={errors.milestones?.[index]?.location?.url?.message} />
+      </label>      
       <div className="flex flex-wrap gap-8">
         <div>
           <DateInput
@@ -87,10 +82,8 @@ export function MilestoneForm({ index, milestone, register, onChange, onDelete, 
             register={register}
             required={true}
             trigger={trigger}
+            error={errors?.milestones?.[index]?.date?.start?.message}
           />
-          <p className="text-error text-sm">
-            {errors?.milestones?.[index]?.date?.start?.message}
-          </p>
         </div>
         <div>
           <DateInput
@@ -100,10 +93,8 @@ export function MilestoneForm({ index, milestone, register, onChange, onDelete, 
             register={register}
             required={true}
             trigger={trigger}
+            error={errors?.milestones?.[index]?.date?.end?.message}
           />
-          <p className="text-error text-sm">
-            {errors?.milestones?.[index]?.date?.end?.message}
-          </p>
         </div>
       </div>      
       
@@ -114,10 +105,8 @@ export function MilestoneForm({ index, milestone, register, onChange, onDelete, 
         onChange={onChange}
         required={true}
         trigger={trigger}
+        error={errors?.milestones?.[index]?.image?.message}
       />
-      <p className="text-error text-sm">
-        {errors?.milestones?.[index]?.image?.message}
-      </p>
       <div className="flex content-start gap-4">
         <button
           type="button"

@@ -5,6 +5,7 @@ import DateInput from '../DateInput/ChallengeDateInput';
 import FileInput from '../FileInput/ChallengeFileInput';
 import { Dialog } from '@challenger/shared/ui';
 import ChallengeMilestoneForm from '../MilestoneForm/ChallengeMilestoneForm';
+import InputValidationError from '../InputValidationError/ChallengeInputValidationError';
 
 /* eslint-disable-next-line */
 export interface CreateFormProps {
@@ -57,9 +58,9 @@ export function ChallengeForm({ show, onSubmit, onClose }: CreateFormProps) {
 
   return show ? (
     <Dialog title="Challenge Form" show={show} onClose={handleClose} data-testid="form">
-      <form onSubmit={handleSubmit(submit)} className="flex flex-col gap-4" noValidate>
+      <form onSubmit={handleSubmit(submit)} className="flex flex-col gap-6" noValidate>
         <label>
-          <span>Title *</span>
+          <span className="input-label">Title *</span>
           <input
             {...register('title', {
               required: 'This field is required',
@@ -75,12 +76,10 @@ export function ChallengeForm({ show, onSubmit, onClose }: CreateFormProps) {
             className="input"
             data-testid="form-title"
           />
-          <p className="text-error pt-2 text-sm">
-            {errors.title?.message}
-          </p>
+          <InputValidationError error={errors.title?.message} />
         </label>
         <label>
-          <span>Description *</span>
+          <span className="input-label">Description *</span>
           <textarea
             {...register('description', {
               required: 'This field is required',
@@ -96,9 +95,7 @@ export function ChallengeForm({ show, onSubmit, onClose }: CreateFormProps) {
             className="input"
             data-testid="form-description"
           />
-          <p className="text-error text-sm">
-            {errors.description?.message}
-          </p>
+          <InputValidationError error={errors.description?.message} />
         </label>
         <div className="flex flex-wrap gap-8">
           <div>
@@ -109,10 +106,8 @@ export function ChallengeForm({ show, onSubmit, onClose }: CreateFormProps) {
               onChange={setValue}
               required={true}
               trigger={trigger}
+              error={errors.date?.start?.message}
             />
-            <p className="text-error text-sm">
-              {errors.date?.start?.message}
-            </p>
           </div>
           <div>
             <DateInput
@@ -124,10 +119,8 @@ export function ChallengeForm({ show, onSubmit, onClose }: CreateFormProps) {
               disabled={!getValues('date')?.start}
               required={true}
               trigger={trigger}
+              error={errors.date?.end?.message}
             />
-            <p className="text-error text-sm">
-              {errors.date?.end?.message}
-            </p>
           </div>          
         </div>
         <FileInput
@@ -137,9 +130,9 @@ export function ChallengeForm({ show, onSubmit, onClose }: CreateFormProps) {
           onChange={setValue}
           required={true}
           trigger={trigger}
+          error={errors.image?.message}
         />
-        {errors.image?.message  && <p className="text-error text-sm">{errors.image?.message}</p>}
-        <h3>Milestones</h3>
+        <span className="h4">Milestones *</span>
         {fields.map((milestone, index) => <ChallengeMilestoneForm index={index} milestone={milestone} onChange={setValue} onDelete={() => remove(index)} register={register} trigger={trigger} errors={errors}/>)}
         <button
           type="button"

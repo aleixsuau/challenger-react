@@ -1,5 +1,6 @@
 import { uploadFile } from '@challenger/shared/data-access/ddbb';
-import { Challenge } from 'libs/challenge/src/typings';
+import { Challenge } from '../../typings';
+import InputValidationError from '../InputValidationError/ChallengeInputValidationError';
 import { ChangeEvent, useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import styles from './ChallengeFileInput.module.scss';
@@ -10,9 +11,10 @@ export interface FileInputProps {
   label: string;
   name: any;
   register: any;
+  trigger: any;
   onChange: UseFormReturn<Challenge>['setValue'];
   required?: boolean;
-  trigger: any;
+  error?: string;
 }
 
 export function FileInput({
@@ -22,6 +24,7 @@ export function FileInput({
   onChange,
   required,
   trigger,
+  error
 }: FileInputProps) {
   const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event?.target?.files?.[0];
@@ -39,7 +42,7 @@ export function FileInput({
         data-testid="source-input"
       />
       <label>
-        <span>
+        <span className="input-label">
           {label}
           {required && ' *'}
         </span>
@@ -50,6 +53,7 @@ export function FileInput({
           required={required}
           data-testid="input-file"
         />
+        <InputValidationError error={error} />
       </label>
     </>
   );
