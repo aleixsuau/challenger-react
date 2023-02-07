@@ -12,31 +12,14 @@ module.exports = {
     ...createGlobPatternsForDependencies(__dirname),
   ],
   theme: {
-    extend: {
-      colors: {
-        primary: {
-          DEFAULT: colors.gray['600'],
-          light: colors.gray['400'],
-          background: colors.gray['100'],
-          dark: colors.gray['800'],
-        },
-        secondary: {
-          DEFAULT: colors.blue['500'],
-          light: colors.blue['300'],
-          dark: colors.blue['800'],
-        },
-        accent: {
-          DEFAULT: colors.pink['500'],
-          light: colors.pink['300'],
-          dark: colors.pink['800'],
-        },
-        error: {
-          DEFAULT: colors.red['500'],
-          light: colors.red['300'],
-          dark: colors.red['800'],
-        },
-      },
+    extend: {      
     },
   },
-  plugins: [],
+  plugins: [
+    require("daisyui"),
+    require('@tailwindcss/typography'),
+  ],
+  daisyui: {
+    themes: ["garden"],
+  },
 };

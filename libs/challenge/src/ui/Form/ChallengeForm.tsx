@@ -59,8 +59,10 @@ export function ChallengeForm({ show, onSubmit, onClose }: CreateFormProps) {
   return show ? (
     <Dialog title="Challenge Form" show={show} onClose={handleClose} data-testid="form">
       <form onSubmit={handleSubmit(submit)} className="flex flex-col gap-6" noValidate>
-        <label>
-          <span className="input-label">Title *</span>
+        <div className="form-control">
+          <label className="label" htmlFor="title">
+            <span className="text-label">Title *</span>
+          </label>
           <input
             {...register('title', {
               required: 'This field is required',
@@ -73,13 +75,17 @@ export function ChallengeForm({ show, onSubmit, onClose }: CreateFormProps) {
                 message: 'Maximum length is 25',
               },
             })}
-            className="input"
+            id="title"
+            className="input input-md input-bordered input-secondary"
             data-testid="form-title"
           />
           <InputValidationError error={errors.title?.message} />
-        </label>
-        <label>
-          <span className="input-label">Description *</span>
+        </div>
+
+        <div className="form-control">
+          <label className="label" htmlFor="description">
+            <span className="text-label">Description *</span>
+          </label>
           <textarea
             {...register('description', {
               required: 'This field is required',
@@ -91,37 +97,34 @@ export function ChallengeForm({ show, onSubmit, onClose }: CreateFormProps) {
                 value: 500,
                 message: 'Maximum length is 500',
               },
-            })}
-            className="input"
+            })}            
+            id="description"
+            className="textarea textarea-md textarea-bordered textarea-secondary"
             data-testid="form-description"
           />
           <InputValidationError error={errors.description?.message} />
-        </label>
+        </div>
         <div className="flex flex-wrap gap-8">
-          <div>
-            <DateInput
-              name="date.start"
-              legend="Starts"
-              register={register}
-              onChange={setValue}
-              required={true}
-              trigger={trigger}
-              error={errors.date?.start?.message}
-            />
-          </div>
-          <div>
-            <DateInput
-              name="date.end"
-              legend="Ends"
-              register={register}
-              onChange={setValue}
-              min={getValues('date')?.start?.time}
-              disabled={!getValues('date')?.start}
-              required={true}
-              trigger={trigger}
-              error={errors.date?.end?.message}
-            />
-          </div>          
+          <DateInput
+            name="date.start"
+            legend="Starts"
+            register={register}
+            onChange={setValue}
+            required={true}
+            trigger={trigger}
+            error={errors.date?.start?.message}
+          />
+          <DateInput
+            name="date.end"
+            legend="Ends"
+            register={register}
+            onChange={setValue}
+            min={getValues('date')?.start?.time}
+            disabled={!getValues('date')?.start}
+            required={true}
+            trigger={trigger}
+            error={errors.date?.end?.message}
+          />          
         </div>
         <FileInput
           name="image"
@@ -134,23 +137,25 @@ export function ChallengeForm({ show, onSubmit, onClose }: CreateFormProps) {
         />
         <span className="h4">Milestones *</span>
         {fields.map((milestone, index) => <ChallengeMilestoneForm index={index} milestone={milestone} onChange={setValue} onDelete={() => remove(index)} register={register} trigger={trigger} errors={errors}/>)}
-        <button
-          type="button"
-          className="button accent"
-          onClick={() => append(defaultMilestone)}
-        >
-          +
-        </button>
+        <div className="flex self-end">
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => append(defaultMilestone)}
+          >
+            Add Milestone
+          </button>
+        </div>
         <div className="flex items-center justify-end gap-4 rounded-b border-t border-solid border-slate-200 p-6">
           <button
             type="submit"
-            className="button accent"
+            className="btn btn-primary"
             data-testid="form-submit"
           >
             Create Challenge
           </button>
           <button
-            className="button"
+            className="btn"
             onClick={handleClose}
             data-testid="form-cancel"
           >

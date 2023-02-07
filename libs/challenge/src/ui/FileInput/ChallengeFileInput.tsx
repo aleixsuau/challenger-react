@@ -41,20 +41,23 @@ export function FileInput({
         {...register(name, { required: required && 'This field is required' })}
         data-testid="source-input"
       />
-      <label>
-        <span className="input-label">
-          {label}
-          {required && ' *'}
-        </span>
+      <div className="form-control">
+        <label className="label" htmlFor={name}>
+          <span className="text-label">
+            {label}
+            {required && ' *'}
+          </span>
+        </label>
         <input
           type="file"
-          className="input"
+          id={name}
+          className="file-input file-input-md file-input-bordered file-input-secondary"
           onChange={handleChange}
           required={required}
           data-testid="input-file"
         />
         <InputValidationError error={error} />
-      </label>
+      </div>
     </>
   );
 }

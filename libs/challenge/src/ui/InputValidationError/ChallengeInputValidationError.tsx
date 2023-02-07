@@ -7,7 +7,7 @@ export interface InputValidationErrorProps {
 
 export function InputValidationError({error}: InputValidationErrorProps) {
   return error ?
-    <span className="text-error text-sm" data-testid="input-validation-error">{error}</span>
+    <span className="text-sm text-accent-focus pt-2" data-testid="input-validation-error">{error}</span>
   : null;
 }
 

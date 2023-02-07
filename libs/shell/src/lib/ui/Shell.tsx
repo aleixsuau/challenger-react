@@ -38,7 +38,7 @@ export function Shell({ title, navbar, children }: ShellConfigProps) {
         />
       </Header>
 
-      <main className="pt-20" data-testid="shell-container">
+      <main className="container mx-auto px-4 pt-20" data-testid="shell-container">
         {children}
       </main>
     </div>

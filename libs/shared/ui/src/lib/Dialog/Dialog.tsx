@@ -25,11 +25,11 @@ export function Dialog({ show, title, onClose, children }: DialogProps) {
                 {title}
               </HeadlessUIDialog.Title>
               <button
-                className="text-primary p-1 text-3xl font-semibold leading-none outline-none focus:outline-none"
+                className="btn btn-primary btn-circle"
                 onClick={onClose}
                 data-testid="form-close"
               >
-                <span className="bg-transparent text-2xl outline-none hover:text-black focus:outline-none">
+                <span className="text-2xl outline-none focus:outline-none">
                   ×
                 </span>
               </button>

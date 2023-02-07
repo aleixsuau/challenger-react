@@ -12,10 +12,10 @@ export function NavBarToggle({ onToggle }: NavbarToggleProps) {
   };
 
   return (
-    <div className="block pr-4 lg:hidden" data-testid="navbar-toggle">
+    <div className="block lg:hidden" data-testid="navbar-toggle">
       <button
         id="nav-toggle"
-        className="focus:shadow-outline flex transform items-center p-1 text-black transition duration-300 ease-in-out hover:scale-105 hover:text-gray-900 focus:outline-none"
+        className="btn btn-ghost focus:shadow-outline flex transform items-center px-3 text-black transition duration-300 ease-in-out hover:scale-105 hover:text-gray-900 focus:outline-none"
         onClick={(e) => handleToggleClick(e)}
         data-testid="navbar-toggle-button"
       >

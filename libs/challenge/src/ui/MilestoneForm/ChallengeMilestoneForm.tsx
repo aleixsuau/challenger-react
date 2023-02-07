@@ -21,11 +21,14 @@ export function MilestoneForm({ index, milestone, register, onChange, onDelete, 
   return (
     <div
       key={milestone.id}
-      className="bg-primary-background flex flex-col gap-8 rounded-sm p-4"
+      className="flex flex-col gap-4 rounded-sm p-4 border-2 border-secondary"
     >
-      <label>        
-        <span className="input-label">Title *</span>
+      <div className="form-control">
+        <label className="label" htmlFor={`milestones.${index}.title`}>
+          <span className="text-label">Title *</span>
+        </label>
         <input
+          id={`milestones.${index}.title`}
           key={milestone.id}
           {...register(`milestones.${index}.title`, {
             required: 'This field is required',
@@ -38,41 +41,47 @@ export function MilestoneForm({ index, milestone, register, onChange, onDelete, 
               message: 'Maximum length is 25',
             },
           })}
-          className="input"
+          className="input input-md input-bordered input-secondary"
         />
         <InputValidationError error={errors.milestones?.[index]?.title?.message} />
-      </label>      
-      <label>
-        <span className="input-label">Description *</span>
-        <input
+      </div>      
+      <div className="form-control">
+        <label className="label" htmlFor={`milestones.${index}.description`}>
+          <span className="text-label">Description *</span>
+        </label>
+        <textarea
           key={milestone.id}
+          id={`milestones.${index}.description`}
           {...register(`milestones.${index}.description`, {
             required: 'This field is required',
             minLength: {
-              value: 3,
-              message: 'Minimum length is 3',
+              value: 25,
+              message: 'Minimum length is 25',
             },
             maxLength: {
               value: 250,
-              message: 'Maximum length is 25',
+              message: 'Maximum length is 250',
             },
           })}
-          className="input"
+          className="textarea textarea-md textarea-bordered textarea-secondary"
         />
         <InputValidationError error={errors.milestones?.[index]?.description?.message} />
-      </label>      
-      <label>
-        <span className="input-label">Meeting URL *</span>
+      </div>
+      <div className="form-control">
+        <label className="label" htmlFor={`milestones.${index}.location.url`}>
+          <span className="text-label">Meeting URL *</span>
+        </label>
         <input
           type="url"
           key={milestone.id}
+          id={`milestones.${index}.location.url`}
           {...register(`milestones.${index}.location.url`, {
             required: 'This field is required',
           })}
-          className="input"
+          className="input input-md input-bordered input-secondary"
         />
         <InputValidationError error={errors.milestones?.[index]?.location?.url?.message} />
-      </label>      
+      </div>      
       <div className="flex flex-wrap gap-8">
         <div>
           <DateInput
@@ -97,7 +106,6 @@ export function MilestoneForm({ index, milestone, register, onChange, onDelete, 
           />
         </div>
       </div>      
-      
       <FileInput
         name={`milestones.${index}.image`}
         label="Image"
@@ -107,13 +115,13 @@ export function MilestoneForm({ index, milestone, register, onChange, onDelete, 
         trigger={trigger}
         error={errors?.milestones?.[index]?.image?.message}
       />
-      <div className="flex content-start gap-4">
+      <div className="flex pt-4 self-end">
         <button
           type="button"
-          className="button"
+          className="btn btn-secondary"
           onClick={() => onDelete()}
         >
-          Delete
+          Delete Milestone
         </button>
       </div>
     </div>

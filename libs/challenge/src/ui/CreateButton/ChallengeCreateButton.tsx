@@ -12,7 +12,7 @@ export function ChallengeCreateButton(props: ChallengeCreateButtonProps) {
 
   return (
     auth.user &&
-    <button className="button accent round-full" onClick={challenge.create} data-testid="challenge-create-button">+</button>
+    <button className="btn btn-circle btn-primary border-2 text-2xl" title="Create challenge" onClick={challenge.create} data-testid="challenge-create-button">+</button>
   );
 }
 

@@ -56,7 +56,7 @@ export function DateInput({
   const minValue = (min ? new Date(min) : new Date()).toISOString().split('T')[0];
 
   return (
-    <>
+    <div>
       <input
         type="hidden"
         data-testid="source-input"
@@ -66,44 +66,39 @@ export function DateInput({
         })}
       />
       <fieldset>
-        <legend className="input-label">
-          {legend} {required && '*'}
-        </legend>
+        <label className="label" htmlFor={name}>
+          <span className="text-label">{legend} {required && '*'}</span>
+        </label>
         <div className="flex flex-wrap gap-4">
-          <label>
-            <input
-              type="date"
-              className="input"
-              name="date"
-              value={date.date}
-              disabled={disabled}
-              required={required}
-              onChange={handleChange}
-              aria-label="Start date"
-              data-testid="input-date"
-              min={minValue}
-            />
-          </label>
-          <label>
-            <input
-              type="time"
-              step="900"
-              className="input"
-              name="time"
-              value={date.time}
-              disabled={disabled}
-              required={required}
-              onChange={handleChange}
-              aria-label="Start time"
-              data-testid="input-time"
-            />
-          </label>
-        </div>        
-        <div className="basis-full">
-          <InputValidationError error={error} />
+          <input
+            type="date"
+            id={name}
+            className="input input-md input-bordered input-secondary"
+            name="date"
+            value={date.date}
+            disabled={disabled}
+            required={required}
+            onChange={handleChange}
+            aria-label="Start date"
+            data-testid="input-date"
+            min={minValue}
+          />
+          <input
+            type="time"
+            step="900"
+            className="input input-md input-bordered input-secondary"
+            name="time"
+            value={date.time}
+            disabled={disabled}
+            required={required}
+            onChange={handleChange}
+            aria-label="Start time"
+            data-testid="input-time"
+          />
         </div>
+        <InputValidationError error={error} />
       </fieldset>
-    </>
+    </div>
   );
 }
 

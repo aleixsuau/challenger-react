@@ -18,14 +18,14 @@ export function UserMenu() {
   return user ? (
     <Menu
       as="div"
-      className="relative basis-44"
+      className="relative basis-48"
       data-testid="user-menu"
     >
       {({ open }) => (
         <>
           <Menu.Button
             data-testid="toggle"
-            className={`button secondary ${open ? 'bg-secondary-dark' : ''}`}
+            className={`btn btn-primary ${open ? 'bg-primary-focus' : ''}`}
             type="button"
           >
             <span className="sr-only">Open user menu</span>
@@ -85,7 +85,7 @@ export function UserMenu() {
 
           <Menu.Items
             data-testid="dropdown"
-            className="text-primary absolute left-0 z-30 mt-2 w-44 divide-y divide-gray-100 rounded bg-white text-sm shadow-md outline-none"
+            className="text-primary absolute left-0 z-30 mt-2 w-48 divide-y divide-gray-100 rounded bg-white text-sm shadow-md outline-none"
           >
             <div className="px-4 py-3">
               <div className="truncate font-medium italic">{user?.email}</div>
@@ -109,7 +109,7 @@ export function UserMenu() {
   ) : (
     <button
       data-testid="toggle"
-      className="button secondary basis-44"
+      className="btn btn-secondary basis-44"
       type="button"
       onClick={loginWithGoogle}
     >
