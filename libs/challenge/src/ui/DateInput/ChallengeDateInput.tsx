@@ -3,14 +3,16 @@ import { ChangeEvent, useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import styles from './ChallengeDateInput.module.scss';
 
-/* eslint-disable-next-line */
 export interface DateInputProps {
   // TODO: type this
   name: any;
   legend: string;
   register: any;
   onChange: UseFormReturn<Challenge>['setValue'];
+  validate?: (date: number) => boolean | string;
+  disabled?: boolean;
   required?: boolean;
+  min?: number | string;
   trigger: any;
 }
 
@@ -19,7 +21,10 @@ export function DateInput({
   legend,
   register,
   onChange,
+  validate,
   required,
+  min,
+  disabled,
   trigger,
 }: DateInputProps) {
   const [date, setDate] = useState({
@@ -45,6 +50,7 @@ export function DateInput({
 
     trigger(name);
   };
+  const minValue = (min ? new Date(min) : new Date()).toISOString().split('T')[0];
 
   return (
     <>
@@ -53,6 +59,7 @@ export function DateInput({
         data-testid="source-input"
         {...register(name, {
           required: required && 'Date and time are required',
+          validate: (date: number) => validate && validate(date),
         })}
       />
       <fieldset className="flex flex-wrap gap-4">
@@ -65,10 +72,12 @@ export function DateInput({
             className="input"
             name="date"
             value={date.date}
+            disabled={disabled}
             required={required}
             onChange={handleChange}
             aria-label="Start date"
             data-testid="input-date"
+            min={minValue}
           />
         </label>
         <label>
@@ -78,6 +87,7 @@ export function DateInput({
             className="input"
             name="time"
             value={date.time}
+            disabled={disabled}
             required={required}
             onChange={handleChange}
             aria-label="Start time"

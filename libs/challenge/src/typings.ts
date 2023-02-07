@@ -1,4 +1,4 @@
-import { Member, Image } from '@challenger/shared/util/typings';
+import { Member } from '@challenger/shared/util/typings';
 
 export interface Challenge {
   uid?: string;
@@ -22,8 +22,8 @@ export interface Milestone {
 }
 
 export interface ChallengeDateRange {
-  start: ChallengeDate;
-  end: ChallengeDate;
+  start?: ChallengeDate;
+  end?: ChallengeDate;
 }
 
 export interface ChallengeDate {
