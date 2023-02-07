@@ -4,6 +4,7 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import DateInput from '../DateInput/ChallengeDateInput';
 import FileInput from '../FileInput/ChallengeFileInput';
 import { Dialog } from '@challenger/shared/ui';
+import ChallengeMilestoneForm from '../MilestoneForm/ChallengeMilestoneForm';
 
 /* eslint-disable-next-line */
 export interface CreateFormProps {
@@ -17,7 +18,7 @@ export function ChallengeForm({ show, onSubmit, onClose }: CreateFormProps) {
     title: '',
     description: '',
     image: '',
-    date: { start: { time: 0, timezone: '' }, end: { time: 0, timezone: '' } },
+    date: { start: undefined, end: undefined },
     location: { url: '' },
   };
   const {
@@ -27,13 +28,14 @@ export function ChallengeForm({ show, onSubmit, onClose }: CreateFormProps) {
     trigger,
     control,
     setValue,
+    getValues,
     watch,
     formState: { errors, isValid },
   } = useForm<Challenge>({
     mode: 'onSubmit',
     defaultValues: {
-      title: '',
-      description: '',
+      title: undefined,
+      description: undefined,
       date: { start: undefined, end: undefined },
       milestones: [],
     },
@@ -55,7 +57,7 @@ export function ChallengeForm({ show, onSubmit, onClose }: CreateFormProps) {
 
   return show ? (
     <Dialog title="Challenge Form" show={show} onClose={handleClose} data-testid="form">
-      <form onSubmit={handleSubmit(submit)} noValidate>
+      <form onSubmit={handleSubmit(submit)} className="flex flex-col gap-4" noValidate>
         <label>
           <span>Title *</span>
           <input
@@ -98,28 +100,36 @@ export function ChallengeForm({ show, onSubmit, onClose }: CreateFormProps) {
             {errors.description?.message}
           </p>
         </label>
-        <DateInput
-          name="date.start"
-          legend="Starts"
-          register={register}
-          onChange={setValue}
-          required={true}
-          trigger={trigger}
-        />
-        <p className="text-error text-sm">
-          {errors.date?.start?.message}
-        </p>
-        <DateInput
-          name="date.end"
-          legend="Ends"
-          register={register}
-          onChange={setValue}
-          required={true}
-          trigger={trigger}
-        />
-        <p className="text-error text-sm">
-          {errors.date?.end?.message}
-        </p>
+        <div className="flex flex-wrap gap-8">
+          <div>
+            <DateInput
+              name="date.start"
+              legend="Starts"
+              register={register}
+              onChange={setValue}
+              required={true}
+              trigger={trigger}
+            />
+            <p className="text-error text-sm">
+              {errors.date?.start?.message}
+            </p>
+          </div>
+          <div>
+            <DateInput
+              name="date.end"
+              legend="Ends"
+              register={register}
+              onChange={setValue}
+              min={getValues('date')?.start?.time}
+              disabled={!getValues('date')?.start}
+              required={true}
+              trigger={trigger}
+            />
+            <p className="text-error text-sm">
+              {errors.date?.end?.message}
+            </p>
+          </div>          
+        </div>
         <FileInput
           name="image"
           label="Image"
@@ -128,91 +138,9 @@ export function ChallengeForm({ show, onSubmit, onClose }: CreateFormProps) {
           required={true}
           trigger={trigger}
         />
-        <p className="text-error text-sm">{errors.image?.message}</p>
+        {errors.image?.message  && <p className="text-error text-sm">{errors.image?.message}</p>}
         <h3>Milestones</h3>
-        {fields.map((milestone, index) => {
-          return (
-            <div
-              key={milestone.id}
-              className="bg-primary-background flex flex-col gap-4 rounded-sm p-4"
-            >
-              <label>
-                <span>Title</span>
-                <input
-                  key={milestone.id}
-                  {...register(`milestones.${index}.title`, {
-                    required: true,
-                    maxLength: 25,
-                  })}
-                  className="input"
-                />
-              </label>
-              <label>
-                <span>Description</span>
-                <input
-                  key={milestone.id}
-                  {...register(`milestones.${index}.description`, {
-                    required: true,
-                    maxLength: 250,
-                  })}
-                  className="input"
-                />
-              </label>
-              <label>
-                <span>Meeting URL</span>
-                <input
-                  key={milestone.id}
-                  {...register(`milestones.${index}.location.url`, {
-                    required: true,
-                  })}
-                  className="input"
-                />
-              </label>
-              <DateInput
-                name={`milestones[${index}].date.start`}
-                legend="Starts"
-                onChange={setValue}
-                register={register}
-                required={true}
-                trigger={trigger}
-              />
-              <p className="text-error text-sm">
-                {errors?.milestones?.[index]?.date?.start?.message}
-              </p>
-              <DateInput
-                name={`milestones[${index}].date.end`}
-                legend="Ends"
-                onChange={setValue}
-                register={register}
-                required={true}
-                trigger={trigger}
-              />
-              <p className="text-error text-sm">
-                {errors?.milestones?.[index]?.date?.end?.message}
-              </p>
-              <FileInput
-                name={`milestones.${index}.image`}
-                label="Image"
-                register={register}
-                onChange={setValue}
-                required={true}
-                trigger={trigger}
-              />
-              <p className="text-error text-sm">
-                {errors?.milestones?.[index]?.image?.message}
-              </p>
-              <div className="flex content-start gap-4">
-                <button
-                  type="button"
-                  className="button"
-                  onClick={() => remove(index)}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          );
-        })}
+        {fields.map((milestone, index) => <ChallengeMilestoneForm index={index} milestone={milestone} onChange={setValue} onDelete={() => remove(index)} register={register} trigger={trigger} errors={errors}/>)}
         <button
           type="button"
           className="button accent"
