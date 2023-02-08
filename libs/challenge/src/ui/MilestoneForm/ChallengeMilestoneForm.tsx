@@ -13,11 +13,12 @@ export interface MilestoneFormProps {
   register: any;
   onChange: UseFormReturn<Challenge>['setValue'];
   onDelete: () => void;
+  getValues: UseFormReturn<Challenge>['getValues'];
   errors: any;
   trigger: any;
 }
 
-export function MilestoneForm({ index, milestone, register, onChange, onDelete, trigger, errors }: MilestoneFormProps) {
+export function MilestoneForm({ index, milestone, register, onChange, onDelete, getValues, trigger, errors }: MilestoneFormProps) {
   return (
     <div
       key={milestone.id}
@@ -99,6 +100,8 @@ export function MilestoneForm({ index, milestone, register, onChange, onDelete, 
             name={`milestones[${index}].date.end`}
             legend="Ends"
             onChange={onChange}
+            min={getValues(`milestones`)?.[index]?.date?.start?.time}
+            disabled={!getValues(`milestones`)?.[index]?.date?.start}
             register={register}
             required={true}
             trigger={trigger}

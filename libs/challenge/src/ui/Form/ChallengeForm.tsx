@@ -38,7 +38,7 @@ export function ChallengeForm({ show, onSubmit, onClose }: CreateFormProps) {
       title: undefined,
       description: undefined,
       date: { start: undefined, end: undefined },
-      milestones: [],
+      milestones: [defaultMilestone],
     },
   });
   const { fields, append, remove } = useFieldArray({
@@ -136,7 +136,7 @@ export function ChallengeForm({ show, onSubmit, onClose }: CreateFormProps) {
           error={errors.image?.message}
         />
         <span className="h4">Milestones *</span>
-        {fields.map((milestone, index) => <ChallengeMilestoneForm index={index} milestone={milestone} onChange={setValue} onDelete={() => remove(index)} register={register} trigger={trigger} errors={errors}/>)}
+        {fields.map((milestone, index) => <ChallengeMilestoneForm key={milestone.id} index={index} milestone={milestone} onChange={setValue} onDelete={() => remove(index)} register={register} trigger={trigger} getValues={getValues} errors={errors}/>)}
         <div className="flex self-end">
           <button
             type="button"
