@@ -1,11 +1,11 @@
 import styles from './ChallengeCreateForm.module.scss';
 import { Challenge, Milestone } from '../../typings';
 import { useFieldArray, useForm } from 'react-hook-form';
-import DateInput from '../DateInput/ChallengeDateInput';
-import FileInput from '../FileInput/ChallengeFileInput';
+import DateInput from '../../ui/DateInput/ChallengeDateInput';
+import FileInput from '../../ui/FileInput/ChallengeFileInput';
 import { Dialog } from '@challenger/shared/ui';
-import ChallengeMilestoneForm from '../MilestoneForm/ChallengeMilestoneForm';
-import InputValidationError from '../InputValidationError/ChallengeInputValidationError';
+import ChallengeMilestoneForm from '../../ui/MilestoneForm/ChallengeMilestoneForm';
+import InputValidationError from '../../ui/InputValidationError/ChallengeInputValidationError';
 
 /* eslint-disable-next-line */
 export interface CreateFormProps {
