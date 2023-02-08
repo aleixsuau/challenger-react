@@ -2,7 +2,7 @@
 import { act, render } from '@testing-library/react';
 import ChallengeCreateButton from './ChallengeCreateButton';
 import * as Auth from '@challenger/shared/auth';
-import * as Challenge from '../../feature/Provider/ChallengeProvider';
+import * as Challenge from '../Provider/ChallengeProvider';
 
 describe('ChallengeCreateButton', () => {
   const createFn = jest.fn();

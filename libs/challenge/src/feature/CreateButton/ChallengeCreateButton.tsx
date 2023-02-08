@@ -1,5 +1,5 @@
 import { useAuth } from '@challenger/shared/auth';
-import { useChallenge } from '../../feature/Provider/ChallengeProvider';
+import { useChallenge } from '../Provider/ChallengeProvider';
 import styles from './ChallengeCreateButton.module.scss';
 
 
