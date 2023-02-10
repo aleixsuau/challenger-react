@@ -1,4 +1,3 @@
 export * from './feature/Provider/ChallengeProvider';
-export * from './ui/CreateButton/ChallengeCreateButton';
-export * from './ui/FileInput/ChallengeFileInput';
-export * from './ui/MilestoneForm/ChallengeMilestoneForm';
+export * from './feature/CreateButton/ChallengeCreateButton';
+export * from './feature/List/ChallengeList';

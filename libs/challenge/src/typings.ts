@@ -1,7 +1,7 @@
 import { Member } from '@challenger/shared/util/typings';
 
 export interface Challenge {
-  uid?: string;
+  id?: string;
   host?: Member;
   title: string;
   description: string;
@@ -11,6 +11,7 @@ export interface Challenge {
 }
 
 export interface Milestone {
+  id?: string;
   title: string;
   description: string;
   location: MilestoneLocation;

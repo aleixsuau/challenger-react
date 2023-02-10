@@ -1,11 +1,22 @@
-import ChallengeForm from '../../ui/Form/ChallengeForm';
+import ChallengeForm from '../Form/ChallengeForm';
 import { createContext, useContext, useState } from 'react';
 import { Challenge } from '../../typings';
-import { addDocument } from '@challenger/shared/data-access/ddbb';
+import { addDocument, queryDocuments } from '@challenger/shared/data-access/ddbb';
+import { WhereFilterOp } from 'firebase/firestore';
+
+export interface ChallengeProviderProps {
+  children: React.ReactNode;
+}
+
+export interface ChallengeContext {
+  create: () => void;
+  // TODO: type this
+  get: (queryKey?: string, queryValue?: string, queryOperator?: WhereFilterOp) => Promise<any>;
+}
 
 const ChallengeContext = createContext<ChallengeContext | undefined>(undefined);
 
-export const useChallenge = () => {
+export const useChallenge = (): ChallengeContext => {
   const context = useContext(ChallengeContext);
 
   if (context === undefined) {
@@ -15,20 +26,25 @@ export const useChallenge = () => {
   return context;
 };
 
-export function ChallengeProvider({ children }: ProviderProps) {
+export const ChallengeProvider = ({ children }: ChallengeProviderProps) => {
   const [showForm, setShowForm] = useState(false);
 
   const create = () => {
     setShowForm(true);
   };
   const save = async (challenge: Partial<Challenge>) => {
-    addDocument('challenges', challenge).catch((error) =>
+    return addDocument('challenges', challenge).catch((error) =>
       console.error('Error adding document: ', error)
+    );
+  };
+  const get = async (queryKey?: string, queryValue?: string, queryOperator?: WhereFilterOp ) => {
+    return queryDocuments('challenges', queryKey, queryValue, queryOperator).catch((error) =>
+      console.error('Error querying documents: ', error)
     );
   };
 
   return (
-    <ChallengeContext.Provider value={{ create }}>
+    <ChallengeContext.Provider value={{ create, get }}>
       {children}
       <ChallengeForm
         show={showForm}
@@ -41,10 +57,3 @@ export function ChallengeProvider({ children }: ProviderProps) {
 
 export default ChallengeProvider;
 
-export interface ProviderProps {
-  children: React.ReactNode;
-}
-
-export interface ChallengeContext {
-  create: () => void;
-}
