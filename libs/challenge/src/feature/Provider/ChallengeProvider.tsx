@@ -1,8 +1,9 @@
 import ChallengeForm from '../Form/ChallengeForm';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext } from 'react';
 import { Challenge } from '../../typings';
 import { addDocument, queryDocuments } from '@challenger/shared/data-access/ddbb';
 import { WhereFilterOp } from 'firebase/firestore';
+import { useDialog } from '@challenger/shared/ui';
 
 export interface ChallengeProviderProps {
   children: React.ReactNode;
@@ -27,13 +28,11 @@ export const useChallenge = (): ChallengeContext => {
 };
 
 export const ChallengeProvider = ({ children }: ChallengeProviderProps) => {
-  const [showForm, setShowForm] = useState(false);
-
-  const create = () => {
-    setShowForm(true);
-  };
+  const dialog = useDialog();  
   const save = async (challenge: Partial<Challenge>) => {
-    return addDocument('challenges', challenge).catch((error) =>
+    return addDocument('challenges', challenge)
+    .then(() => dialog.close())
+    .catch((error) =>
       console.error('Error adding document: ', error)
     );
   };
@@ -42,15 +41,13 @@ export const ChallengeProvider = ({ children }: ChallengeProviderProps) => {
       console.error('Error querying documents: ', error)
     );
   };
+  const create = () => {
+    dialog.open(<ChallengeForm onSubmit={save} onCancel={dialog.close} />, 'Create challenge');
+  };
 
   return (
     <ChallengeContext.Provider value={{ create, get }}>
-      {children}
-      <ChallengeForm
-        show={showForm}
-        onSubmit={save}
-        onClose={() => setShowForm(false)}
-      />
+      {children}      
     </ChallengeContext.Provider>
   );
 }

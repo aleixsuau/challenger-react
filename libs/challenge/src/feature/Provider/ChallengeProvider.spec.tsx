@@ -1,59 +1,85 @@
 import { act, render } from '@testing-library/react';
 import ChallengeProvider, { useChallenge } from './ChallengeProvider';
 import * as DDBB from '@challenger/shared/data-access/ddbb';
+import { DialogProvider } from '@challenger/shared/ui';
+import 'intersection-observer';
 
-jest.mock('../../ui/Form/ChallengeForm', () => {
+describe('Challenge Provider', () => {
+  describe('Create', () => {
+    it('should show/hide the challenge form', async () => {
+      const { queryByTestId } = render(
+        <DialogProvider>
+          <ChallengeProvider>
+            <ChallengeCreateButtonMock />
+          </ChallengeProvider>
+        </DialogProvider>
+      );
+
+      await act(async () => await queryByTestId('challenge-create-button')?.click());
+
+      expect(queryByTestId('challenge-form')).toBeTruthy();
+
+      await act(async () => await queryByTestId('challenge-form-cancel')?.click());
+
+      expect(queryByTestId('challenge-form')).toBeFalsy();
+    });
+
+    it('should save the challenge on form submission', async () => {
+      const { queryByTestId } = render(
+        <DialogProvider>
+          <ChallengeProvider>
+            <ChallengeCreateButtonMock />
+          </ChallengeProvider>
+        </DialogProvider>
+      );
+
+      await act(async () => await queryByTestId('challenge-create-button')?.click());
+      await act(async () => await queryByTestId('challenge-form-submit')?.click());
+
+      expect(DDBB.addDocument).toHaveBeenCalled();
+    });
+  });
+
+  describe('Get', () => {
+    it('should get challenges', async () => {
+      const { queryByTestId } = render(
+        <DialogProvider>
+          <ChallengeProvider>
+            <ChallengesGetButtonMock />
+          </ChallengeProvider>
+        </DialogProvider>
+      );
+
+      await act(async () => await queryByTestId('get-challenges-button')?.click());
+
+      expect(DDBB.queryDocuments).toHaveBeenCalled();
+    });
+  });
+});
+
+jest.mock('../Form/ChallengeForm', () => {
   return {
     __esModule: true,
-    default: ({ show, onSave, onClose }: any) => {
-      return show && <div data-testid="challenge-form">
-        <button onClick={onSave} data-testid="challenge-form-submit">Save Challenge</button>
-        <button onClick={onClose} data-testid="challenge-form-cancel">Close Challenge</button>
+    default: ({ onSubmit, onCancel }: any) => {
+      return <div data-testid="challenge-form">
+        <button onClick={onSubmit} data-testid="challenge-form-submit">Save Challenge</button>
+        <button onClick={onCancel} data-testid="challenge-form-cancel">Close Challenge</button>
       </div>;
     },
   };
 });
 
-jest.mock('@challenger/shared/data-access/ddbb', () =>  ({
-    addDocument: jest.fn(() => Promise.resolve()),
+jest.mock('@challenger/shared/data-access/ddbb', () => ({
+  addDocument: jest.fn(() => Promise.resolve()),
+  queryDocuments: jest.fn(() => Promise.resolve()),
 }));
 
 const ChallengeCreateButtonMock = () => {
   const challenge = useChallenge();
-  return <button onClick={challenge.create} data-testid="create-challenge-button">Create Challenge</button>;
+  return <button onClick={challenge.create} data-testid="challenge-create-button">Create challenge</button>;
 };
 
-describe('Challenge Provider', () => {
-  describe('Challenge creation', () => {
-    it('should toggle the challenge form', () => {
-      const { queryByTestId } = render(
-        <ChallengeProvider>
-          <ChallengeCreateButtonMock />
-        </ChallengeProvider>
-      );
-
-      expect(queryByTestId('challenge-form')).toBeFalsy();
-
-      act(() => queryByTestId('create-challenge-button')?.click());
-
-      expect(queryByTestId('challenge-form')).toBeTruthy();
-
-      act(() => queryByTestId('challenge-form-cancel')?.click());
-
-      expect(queryByTestId('challenge-form')).toBeFalsy();
-    });
-
-    it('should save the challenge', () => {
-      const { queryByTestId } = render(
-        <ChallengeProvider>
-          <ChallengeCreateButtonMock />
-        </ChallengeProvider>
-      );
-
-      act(() => queryByTestId('create-challenge-button')?.click());
-      act(() => queryByTestId('challenge-form-submit')?.click());
-
-      expect(DDBB.addDocument).toHaveBeenCalled();
-    });
-  });
-});
+const ChallengesGetButtonMock = () => {
+  const challenge = useChallenge();
+  return <button data-testid="get-challenges-button" onClick={() => challenge.get()}>Get challenges</button>;
+};
