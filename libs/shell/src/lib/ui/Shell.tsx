@@ -37,8 +37,7 @@ export function Shell({ title, navbar, children }: ShellConfigProps) {
           vertical={true}
         />
       </Header>
-
-      <main className="container mx-auto px-4 pt-20" data-testid="shell-container">
+      <main className="container mx-auto px-4 pt-32" data-testid="shell-container">
         {children}
       </main>
     </div>

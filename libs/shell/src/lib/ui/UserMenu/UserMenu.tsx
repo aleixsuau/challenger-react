@@ -18,7 +18,7 @@ export function UserMenu() {
   return user ? (
     <Menu
       as="div"
-      className="relative basis-48"
+      className="relative basis-50"
       data-testid="user-menu"
     >
       {({ open }) => (
@@ -45,7 +45,7 @@ export function UserMenu() {
             <span className="truncate">{user?.displayName}</span>
             {user?.photoURL ? (
               <img
-                className="ring-secondary-light ml-3 h-8 w-8 rounded-full ring-2"
+                className="ring-primary-content ml-3 h-8 w-8 rounded-full ring-2"
                 src={user?.photoURL}
                 alt="user profile"
               />

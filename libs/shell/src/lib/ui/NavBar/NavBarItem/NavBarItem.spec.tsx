@@ -27,6 +27,6 @@ describe('Navbar Item', () => {
       <NavBarItem section={section} vertical={true} />
     );
 
-    expect(getByTestId('navbar-item')).toHaveClass('border-b-2');
+    expect(getByTestId('navbar-item')).toHaveClass('border-gray-100');
   });
 });

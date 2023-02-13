@@ -20,7 +20,7 @@ export function NavBar({
   const baseNavBarClassNames = `navbar`;
   const verticalNavBarClassNames = `${isOpen ? 'block' : 'hidden'
     } lg:hidden vertical`;
-  const horizontalNavBarClassNames = `hidden lg:flex lg:w-auto`;
+  const horizontalNavBarClassNames = `hidden lg:flex lg:w-auto horizontal`;
   const resultNavBarClassNames = `${baseNavBarClassNames} ${vertical ? verticalNavBarClassNames : horizontalNavBarClassNames
     }`;
   const listClassNames = `flex w-full ${vertical ? 'menu' : 'menu menu-horizontal'}`;

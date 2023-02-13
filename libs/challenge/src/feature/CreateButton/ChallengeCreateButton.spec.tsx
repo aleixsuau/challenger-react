@@ -8,7 +8,7 @@ describe('ChallengeCreateButton', () => {
   const createFn = jest.fn();
   beforeEach(() => {
     jest.spyOn(Auth, 'useAuth').mockReturnValue({ user: null } as any);
-    jest.spyOn(Challenge, 'useChallenge').mockReturnValue({ create: createFn });
+    jest.spyOn(Challenge, 'useChallenge').mockReturnValue({ create: createFn } as any);
   });
 
   it('should be hidden by default', () => {
