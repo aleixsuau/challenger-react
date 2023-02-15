@@ -3,8 +3,8 @@ import { Challenge, Milestone } from '../../typings';
 import { useFieldArray, useForm } from 'react-hook-form';
 import DateInput from '../../ui/DateInput/ChallengeDateInput';
 import FileInput from '../../ui/FileInput/ChallengeFileInput';
-import ChallengeMilestoneForm from '../../ui/MilestoneForm/ChallengeMilestoneForm';
 import InputValidationError from '../../ui/InputValidationError/ChallengeInputValidationError';
+import ChallengeMilestoneForm from '../MilestoneForm/ChallengeMilestoneForm';
 
 /* eslint-disable-next-line */
 export interface CreateFormProps {
@@ -50,7 +50,7 @@ export function ChallengeForm({ onSubmit, onCancel }: CreateFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit(submit)} className="flex flex-col gap-6" noValidate>
+    <form onSubmit={handleSubmit(submit)} className="flex flex-col gap-6 p-6" noValidate>
       <div className="form-control">
         <label className="label" htmlFor="title">
           <span className="text-label">Title *</span>

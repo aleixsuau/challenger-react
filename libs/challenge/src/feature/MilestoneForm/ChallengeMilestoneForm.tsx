@@ -1,9 +1,10 @@
 import { Challenge } from '../../typings';
 import { FieldArrayWithId, UseFormReturn } from 'react-hook-form';
 import styles from './ChallengeMilestoneForm.module.scss';
-import DateInput from '../DateInput/ChallengeDateInput';
-import FileInput from '../FileInput/ChallengeFileInput';
-import InputValidationError from '../InputValidationError/ChallengeInputValidationError';
+import DateInput from '../../ui/DateInput/ChallengeDateInput';
+import FileInput from '../../ui/FileInput/ChallengeFileInput';
+import InputValidationError from '../../ui/InputValidationError/ChallengeInputValidationError';
+
 
 /* eslint-disable-next-line */
 // TODO: add types
