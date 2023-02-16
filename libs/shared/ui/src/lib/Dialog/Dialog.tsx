@@ -30,13 +30,15 @@ export const useDialog = (): DialogContext => {
   }
 
   return context;
-}
+};
 
-export const DialogProvider = ({ children: dialogProviderChildren  }: DialogProviderProps) => {
+export const DialogProvider = ({
+  children: dialogProviderChildren,
+}: DialogProviderProps) => {
   const [isOpen, setIsOpen] = useState<DialogProps['show']>(false);
   const [title, setTitle] = useState<DialogProps['title']>(undefined);
   const [children, setChildren] = useState<DialogProps['children']>(undefined);
-  const open = (children: React.ReactNode, title?: string,) => {
+  const open = (children: React.ReactNode, title?: string) => {
     setChildren(children);
     setTitle(title);
     setIsOpen(true);
@@ -48,10 +50,15 @@ export const DialogProvider = ({ children: dialogProviderChildren  }: DialogProv
   return (
     <DialogContext.Provider value={{ isOpen, open, close }}>
       {dialogProviderChildren}
-      <Dialog show={isOpen} title={title} children={children} onClose={() => setIsOpen(false)} />
+      <Dialog
+        show={isOpen}
+        title={title}
+        children={children}
+        onClose={() => setIsOpen(false)}
+      />
     </DialogContext.Provider>
-  )
-}
+  );
+};
 
 export function Dialog({ show, title, children, onClose }: DialogProps) {
   return (
@@ -60,34 +67,31 @@ export function Dialog({ show, title, children, onClose }: DialogProps) {
         id="backdrop"
         className="fixed inset-0 z-40 bg-black opacity-25"
       ></div>
-
-      <HeadlessUIDialog.Panel className="fixed inset-0 z-50 my-40 mx-auto max-w-5xl items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none">
-        <div className="relative w-full rounded-lg border-0 bg-white shadow-lg outline-none focus:outline-none">
-          <div className="flex flex-col">
-            <div className="flex items-start justify-between border-b border-solid border-slate-200 p-5">
-              <HeadlessUIDialog.Title 
+      <HeadlessUIDialog.Panel className="fixed inset-0 z-50 my-40 mx-auto max-w-[90%] items-center justify-center outline-none focus:outline-none">
+        <button
+          className="btn btn-primary btn-circle absolute top-4 right-4"
+          onClick={onClose}
+          data-testid="dialog-close-button"
+        >
+          <span className="text-2xl outline-none focus:outline-none">×</span>
+        </button>
+        <div className="w-full overflow-y-auto overflow-x-hidden rounded-lg border-0 bg-white shadow-lg outline-none focus:outline-none">
+          {title && (
+            <div className="mb-4 border-b border-solid border-slate-200 p-5">
+              <HeadlessUIDialog.Title
                 className="text-primary-dark text-3xl font-semibold"
                 data-testid="dialog-title"
               >
                 {title}
               </HeadlessUIDialog.Title>
-              <button
-                className="btn btn-primary btn-circle"
-                onClick={onClose}
-                data-testid="dialog-close-button"
-              >
-                <span className="text-2xl outline-none focus:outline-none">
-                  ×
-                </span>
-              </button>
             </div>
-            <HeadlessUIDialog.Description
-              as="div"
-              className="text-primary my-4 flex flex-col gap-4 p-6 text-lg leading-relaxed"
-            >
-              {children}
-            </HeadlessUIDialog.Description>
-          </div>
+          )}
+          <HeadlessUIDialog.Description
+            as="div"
+            className="text-primary flex flex-col gap-4 text-lg leading-relaxed"
+          >
+            {children}
+          </HeadlessUIDialog.Description>
         </div>
       </HeadlessUIDialog.Panel>
     </HeadlessUIDialog>
