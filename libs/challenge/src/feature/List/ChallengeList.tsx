@@ -7,11 +7,11 @@ import styles from './ChallengeList.module.scss';
 
 export function ChallengeList() {
   const {challenges} = useChallenge();
-  const dialog = useDialog();
+  const { openDialog } = useDialog();
 
   const handleCardClick = (event: React.MouseEvent, challenge: Challenge) => {
     event.preventDefault();
-    dialog.open(<ChallengeDetail challenge={challenge} />);
+    openDialog(<ChallengeDetail challenge={challenge} />);
   };
 
   return (

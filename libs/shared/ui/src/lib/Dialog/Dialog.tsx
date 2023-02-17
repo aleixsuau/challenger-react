@@ -2,26 +2,6 @@ import styles from './Dialog.module.scss';
 import { Dialog as HeadlessUIDialog } from '@headlessui/react';
 import { createContext, useContext, useState } from 'react';
 
-/* eslint-disable-next-line */
-export interface DialogProps {
-  show: boolean;
-  onClose: () => void;
-  children: React.ReactNode;
-  title?: string;
-}
-
-export interface DialogContext {
-  isOpen: boolean;
-  open: (dialogChildren: React.ReactNode, title?: string) => void;
-  close: () => void;
-}
-
-interface DialogProviderProps {
-  children: React.ReactNode;
-}
-
-const DialogContext = createContext<DialogContext | undefined>(undefined);
-
 export const useDialog = (): DialogContext => {
   const context = useContext(DialogContext);
 
@@ -35,39 +15,39 @@ export const useDialog = (): DialogContext => {
 export const DialogProvider = ({
   children: dialogProviderChildren,
 }: DialogProviderProps) => {
-  const [isOpen, setIsOpen] = useState<DialogProps['show']>(false);
+  const [isDialogOpen, setIsDialogOpen] = useState<DialogProps['show']>(false);
   const [title, setTitle] = useState<DialogProps['title']>(undefined);
   const [children, setChildren] = useState<DialogProps['children']>(undefined);
-  const open = (children: React.ReactNode, title?: string) => {
+  const openDialog = (children: React.ReactNode, title?: string) => {
     setChildren(children);
     setTitle(title);
-    setIsOpen(true);
+    setIsDialogOpen(true);
   };
-  const close = () => {
-    setIsOpen(false);
+  const closeDialog = () => {
+    setIsDialogOpen(false);
   };
 
   return (
-    <DialogContext.Provider value={{ isOpen, open, close }}>
+    <DialogContext.Provider value={{ isDialogOpen, openDialog, closeDialog }}>
       {dialogProviderChildren}
       <Dialog
-        show={isOpen}
+        show={isDialogOpen}
         title={title}
         children={children}
-        onClose={() => setIsOpen(false)}
+        onClose={() => setIsDialogOpen(false)}
       />
     </DialogContext.Provider>
   );
 };
 
-export function Dialog({ show, title, children, onClose }: DialogProps) {
+function Dialog({ show, title, children, onClose }: DialogProps) {
   return (
     <HeadlessUIDialog open={show} onClose={onClose} data-testid="dialog">
       <div
         id="backdrop"
         className="fixed inset-0 z-40 bg-black opacity-25"
       ></div>
-      <HeadlessUIDialog.Panel className="fixed inset-0 z-50 my-40 mx-auto max-w-[90%] items-center justify-center outline-none focus:outline-none">
+      <HeadlessUIDialog.Panel className="fixed inset-0 z-50 my-40 mx-auto max-w-[90%] max-h-[80vh] items-center justify-center outline-none overflow-scroll focus:outline-none">
         <button
           className="btn btn-primary btn-circle absolute top-4 right-4"
           onClick={onClose}
@@ -99,3 +79,22 @@ export function Dialog({ show, title, children, onClose }: DialogProps) {
 }
 
 export default Dialog;
+
+export interface DialogProps {
+  show: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+  title?: string;
+}
+
+export interface DialogContext {
+  isDialogOpen: boolean;
+  openDialog: (dialogChildren: React.ReactNode, title?: string) => void;
+  closeDialog: () => void;
+}
+
+interface DialogProviderProps {
+  children: React.ReactNode;
+}
+
+const DialogContext = createContext<DialogContext | undefined>(undefined);

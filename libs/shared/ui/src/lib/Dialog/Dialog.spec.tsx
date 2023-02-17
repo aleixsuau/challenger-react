@@ -97,18 +97,18 @@ describe('Dialog', () => {
 });
 
 const DialogOpenButtonMock = () => {
-  const dialog = useDialog();
-  return <button onClick={() => dialog.open(<DialogChildrenMock />, 'test-title')} data-testid="dialog-open-button-mock">Open dialog</button>;
+  const {openDialog} = useDialog();
+  return <button onClick={() => openDialog(<DialogChildrenMock />, 'test-title')} data-testid="dialog-open-button-mock">Open dialog</button>;
 };
 
 const DialogCloseButtonMock = () => {
-  const dialog = useDialog();
-  return <button onClick={() => dialog.close()} data-testid="dialog-close-button-mock">Close dialog</button>;
+  const {closeDialog} = useDialog();
+  return <button onClick={() => closeDialog()} data-testid="dialog-close-button-mock">Close dialog</button>;
 };
 
 const DialogStatusMock = () => {
-  const dialog = useDialog();
-  return <div data-testid="dialog-status-mock">{`${dialog.isOpen}`}</div>;
+  const {isDialogOpen} = useDialog();
+  return <div data-testid="dialog-status-mock">{`${isDialogOpen}`}</div>;
 };
 
 const DialogChildrenMock = () => {

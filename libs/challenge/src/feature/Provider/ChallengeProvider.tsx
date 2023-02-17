@@ -17,12 +17,12 @@ export const useChallenge = (): ChallengeContext => {
 };
 
 export const ChallengeProvider = ({ children }: ChallengeProviderProps) => {  
-  const dialog = useDialog();
+  const { openDialog, closeDialog } = useDialog();
   const {challenges, getChallenges} = useChallenges();
 
   const saveChallenge = async (challenge: Partial<Challenge>) => {
     return addDocument('challenges', challenge)
-    .then(() => dialog.close())
+    .then(() => closeDialog())
     .then(() => getChallenges())
     .catch((error) =>
       console.error('Error adding document: ', error)
@@ -30,7 +30,7 @@ export const ChallengeProvider = ({ children }: ChallengeProviderProps) => {
   };
 
   const createChallenge = () => {
-    dialog.open(<ChallengeForm onSubmit={saveChallenge} onCancel={dialog.close} />, 'Create challenge');
+    openDialog(<ChallengeForm onSubmit={saveChallenge} onCancel={closeDialog} />, 'Create challenge');
   };
 
   return (
