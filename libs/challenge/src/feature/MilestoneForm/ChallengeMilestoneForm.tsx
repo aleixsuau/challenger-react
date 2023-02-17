@@ -115,8 +115,9 @@ export function MilestoneForm({ index, milestone, register, onChange, onDelete, 
         label="Image"
         register={register}
         onChange={onChange}
-        required={true}
+        getValues={getValues}
         trigger={trigger}
+        required={true}
         error={errors?.milestones?.[index]?.image?.message}
       />
       <div className="flex pt-4 self-end">

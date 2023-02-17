@@ -16,7 +16,7 @@ const FormComponent = () => {
       <span data-testid="form-image-value">{getValues('image')}</span>
       <span data-testid="form-required-error">{errors.image?.message as any}</span>
       <form>
-        <FileInput name="image" label="Image" register={register} onChange={setValue} required={true} trigger={trigger} />
+        <FileInput name="image" label="Image" register={register} onChange={setValue} required={true} trigger={trigger} getValues={getValues} />
       </form>
     </>
   );

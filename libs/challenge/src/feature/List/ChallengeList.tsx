@@ -2,6 +2,7 @@ import { useDialog } from '@challenger/shared/ui';
 import { Challenge } from '../../typings';
 import ChallengeCard from '../../ui/Card/ChallengeCard';
 import ChallengeDetail from '../../ui/Detail/ChallengeDetail';
+import ChallengeForm from '../Form/ChallengeForm';
 import { useChallenge } from '../Provider/ChallengeProvider';
 import styles from './ChallengeList.module.scss';
 
@@ -10,8 +11,12 @@ export function ChallengeList() {
   const { openDialog } = useDialog();
 
   const handleCardClick = (event: React.MouseEvent, challenge: Challenge) => {
-    event.preventDefault();
+    event.stopPropagation();
     openDialog(<ChallengeDetail challenge={challenge} />);
+  };
+
+  const handleCardEdit = (challenge: Challenge) => {
+    openDialog(<ChallengeForm challenge={challenge} onSubmit={() => console.log('Submit')} onCancel={() => console.log('onCancel')}/>);
   };
 
   return (
@@ -21,6 +26,7 @@ export function ChallengeList() {
           challenge={challenge}
           key={challenge.id}
           onClick={(event) => handleCardClick(event, challenge)}
+          onEdit={() => handleCardEdit(challenge)}
         />
       ))}
     </div>

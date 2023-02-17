@@ -12,6 +12,7 @@ export interface FileInputProps {
   name: any;
   register: any;
   trigger: any;
+  getValues: UseFormReturn<Challenge>['getValues'];
   onChange: UseFormReturn<Challenge>['setValue'];
   required?: boolean;
   error?: string;
@@ -22,10 +23,13 @@ export function FileInput({
   label,
   register,
   onChange,
-  required,
   trigger,
+  getValues,
+  required,  
   error
 }: FileInputProps) {
+  // const [image, setImage] = useState<string | undefined>(undefined);
+  const imageUrl = getValues(name);
   const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event?.target?.files?.[0];
     const fileDDBBUrlResult = await uploadFile(file);
@@ -35,30 +39,33 @@ export function FileInput({
   };
 
   return (
-    <>
-      <input
-        type="hidden"
-        {...register(name, { required: required && 'This field is required' })}
-        data-testid="source-input"
-      />
-      <div className="form-control">
-        <label className="label" htmlFor={name}>
-          <span className="text-label">
-            {label}
-            {required && ' *'}
-          </span>
-        </label>
+    imageUrl ?
+      <img src={imageUrl} /> :
+      <>
         <input
-          type="file"
-          id={name}
-          className="file-input file-input-md file-input-bordered file-input-secondary"
-          onChange={handleChange}
-          required={required}
-          data-testid="input-file"
+          type="hidden"
+          {...register(name, { required: required && 'This field is required' })}
+          data-testid="source-input"
         />
-        <InputValidationError error={error} />
-      </div>
-    </>
+        <div className="form-control">
+          <label className="label" htmlFor={name}>
+            <span className="text-label">
+              {label}
+              {required && ' *'}
+            </span>
+          </label>
+          <input
+            type="file"
+            id={name}
+            className="file-input file-input-md file-input-bordered file-input-secondary"
+            onChange={handleChange}
+            required={required}
+            data-testid="input-file"
+            accept="image/*"
+          />
+          <InputValidationError error={error} />
+        </div>
+      </>
   );
 }
 
