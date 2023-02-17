@@ -24,7 +24,7 @@ export function ChallengeMilestone({ milestone }: ChallengeMilestoneProps) {
           data-testid="milestone"
         >
           <div
-            className="bg-secondary ltr-linear-infinite shrink-0 basis-40 bg-cover bg-center bg-no-repeat"
+            className="bg-secondary shrink-0 basis-40 bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: `url(${milestone.image})` }}
             data-testid="milestone-image"
           ></div>

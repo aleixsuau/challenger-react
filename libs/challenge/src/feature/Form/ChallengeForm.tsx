@@ -8,17 +8,24 @@ import ChallengeMilestoneForm from '../MilestoneForm/ChallengeMilestoneForm';
 
 /* eslint-disable-next-line */
 export interface CreateFormProps {
+  challenge?: Challenge;
   onSubmit: (challenge: Challenge) => void;
   onCancel: () => void;
 }
 
-export function ChallengeForm({ onSubmit, onCancel }: CreateFormProps) {
+export function ChallengeForm({ challenge, onSubmit, onCancel }: CreateFormProps) {
   const defaultMilestone: Milestone = {
     title: '',
     description: '',
     image: '',
     date: { start: undefined, end: undefined },
     location: { url: '' },
+  };
+  const defaultValues = challenge || {
+    title: undefined,
+    description: undefined,
+    date: { start: undefined, end: undefined },
+    milestones: [defaultMilestone],
   };
   const {
     register,
@@ -32,12 +39,7 @@ export function ChallengeForm({ onSubmit, onCancel }: CreateFormProps) {
     formState: { errors, isValid },
   } = useForm<Challenge>({
     mode: 'onSubmit',
-    defaultValues: {
-      title: undefined,
-      description: undefined,
-      date: { start: undefined, end: undefined },
-      milestones: [defaultMilestone],
-    },
+    defaultValues,
   });
   const { fields, append, remove } = useFieldArray({
     control,
@@ -50,7 +52,7 @@ export function ChallengeForm({ onSubmit, onCancel }: CreateFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit(submit)} className="flex flex-col gap-6 p-6" noValidate>
+    <form onSubmit={handleSubmit(submit)} className="flex flex-col gap-2 p-6" noValidate>
       <div className="form-control">
         <label className="label" htmlFor="title">
           <span className="text-label">Title *</span>
@@ -96,10 +98,12 @@ export function ChallengeForm({ onSubmit, onCancel }: CreateFormProps) {
         />
         <InputValidationError error={errors.description?.message} />
       </div>
-      <div className="flex flex-wrap gap-8">
+      <div className="flex flex-wrap">
         <DateInput
           name="date.start"
           legend="Starts"
+          value={getValues('date.start')}
+          max={getValues('date')?.end?.time}
           register={register}
           onChange={setValue}
           required={true}
@@ -109,6 +113,7 @@ export function ChallengeForm({ onSubmit, onCancel }: CreateFormProps) {
         <DateInput
           name="date.end"
           legend="Ends"
+          value={getValues('date.end')}
           register={register}
           onChange={setValue}
           min={getValues('date')?.start?.time}
@@ -123,8 +128,9 @@ export function ChallengeForm({ onSubmit, onCancel }: CreateFormProps) {
         label="Image"
         register={register}
         onChange={setValue}
-        required={true}
+        getValues={getValues}
         trigger={trigger}
+        required={true}
         error={errors.image?.message}
         data-testid="image"
       />
@@ -145,7 +151,7 @@ export function ChallengeForm({ onSubmit, onCancel }: CreateFormProps) {
           className="btn btn-primary"
           data-testid="form-submit"
         >
-          Create Challenge
+          {challenge?.id ? 'Update' : 'Create'} Challenge
         </button>
         <button
           className="btn"

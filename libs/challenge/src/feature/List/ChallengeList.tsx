@@ -1,17 +1,18 @@
-import { useDialog } from '@challenger/shared/ui';
 import { Challenge } from '../../typings';
 import ChallengeCard from '../../ui/Card/ChallengeCard';
-import ChallengeDetail from '../../ui/Detail/ChallengeDetail';
 import { useChallenge } from '../Provider/ChallengeProvider';
 import styles from './ChallengeList.module.scss';
 
 export function ChallengeList() {
-  const {challenges} = useChallenge();
-  const { openDialog } = useDialog();
+  const { challenges, showChallenge, editChallenge } = useChallenge();
 
   const handleCardClick = (event: React.MouseEvent, challenge: Challenge) => {
-    event.preventDefault();
-    openDialog(<ChallengeDetail challenge={challenge} />);
+    event.stopPropagation();
+    showChallenge(challenge);
+  };
+
+  const handleCardEdit = (challenge: Challenge) => {
+    editChallenge(challenge);
   };
 
   return (
@@ -21,6 +22,7 @@ export function ChallengeList() {
           challenge={challenge}
           key={challenge.id}
           onClick={(event) => handleCardClick(event, challenge)}
+          onEdit={() => handleCardEdit(challenge)}
         />
       ))}
     </div>

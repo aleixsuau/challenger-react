@@ -55,6 +55,7 @@
     "@headlessui/tailwindcss": "^0.1.2",
     "@heroicons/react": "^2.0.15",
     "@tailwindcss/line-clamp": "^0.4.2",
+    "antd": "^5.2.2",
     "core-js": "^3.6.5",
     "daisyui": "^2.50.0",
     "firebase": "^9.15.0",

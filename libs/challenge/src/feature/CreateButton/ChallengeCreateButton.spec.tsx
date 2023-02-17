@@ -5,10 +5,11 @@ import * as Auth from '@challenger/shared/auth';
 import * as Challenge from '../Provider/ChallengeProvider';
 
 describe('ChallengeCreateButton', () => {
-  const createFn = jest.fn();
+  const createChallenge = jest.fn();
+
   beforeEach(() => {
     jest.spyOn(Auth, 'useAuth').mockReturnValue({ user: null } as any);
-    jest.spyOn(Challenge, 'useChallenge').mockReturnValue({ create: createFn } as any);
+    jest.spyOn(Challenge, 'useChallenge').mockReturnValue({ createChallenge } as any);
   });
 
   it('should be hidden by default', () => {
@@ -33,7 +34,7 @@ describe('ChallengeCreateButton', () => {
 
       act(() => queryByTestId('challenge-create-button')?.click());
 
-      expect(createFn).toHaveBeenCalled();
+      expect(createChallenge).toHaveBeenCalled();
     });
   });
 });

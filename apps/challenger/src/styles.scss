@@ -9,3 +9,11 @@
 .card-body {
   @apply gap-4;  
 }
+
+.ant-picker-ok .ant-btn {
+  @apply btn btn-primary m-2;
+}
+
+.ant-picker-now-btn {
+  @apply btn btn-secondary m-2 hover:text-black;
+}

@@ -1,4 +1,4 @@
-import { act, findAllByTestId, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import ChallengeList from './ChallengeList';
 import * as Challenge from '../Provider/ChallengeProvider';
 
@@ -40,25 +40,45 @@ export const challengesMock = [
 ]
 
 describe('List', () => {
-  const getChallengesFn = jest.fn(() => Promise.resolve(challengesMock));
+  const showChallenge = jest.fn();
+  const editChallenge = jest.fn();
 
   beforeEach(() => {
-    jest.spyOn(Challenge, 'useChallenge').mockReturnValue({ get: getChallengesFn } as any);
+    jest.spyOn(Challenge, 'useChallenge').mockReturnValue(
+      { 
+        challenges: challengesMock,
+        showChallenge,
+        editChallenge,
+      } as any);
   });
 
-  it('should fetch challenges in the first render', async () => {
-    await act(async () => render(<ChallengeList />));
+  describe('UI', () => {
+    it('should display one card per challenge', () => {
+      const { findAllByTestId } = render(<ChallengeList />);
 
-    expect(getChallengesFn).toHaveBeenCalled();
+      findAllByTestId('challenge-card').then((cards: HTMLElement[]) => {
+        expect(cards.length).toEqual(challengesMock.length);
+      });
+    });
   });
 
-  it('should display one card per challenge', async () => {
-    let testUtils;
+  describe('Show challenge', () => {
+    it('should show the challenge on card click', () => {
+      const { queryAllByTestId } = render(<ChallengeList />);
 
-    await act(async () => {testUtils = render(<ChallengeList />)});
+      queryAllByTestId('challenge-card')[0]?.click();
 
-    testUtils!.findAllByTestId('card').then((cards: HTMLElement[]) => {
-      expect(cards.length).toEqual(challengesMock.length);
-    }); 
+      expect(showChallenge).toHaveBeenCalled();
+    });
+  });
+
+  describe('Edit challenge', () => {
+    it('should edit the challenge on card`s edit button click', () => {
+      const { queryAllByTestId } = render(<ChallengeList />);
+
+      queryAllByTestId('challenge-card-edit-cta')[0]?.click();
+
+      expect(editChallenge).toHaveBeenCalled();
+    });
   });
 });

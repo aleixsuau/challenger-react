@@ -1,4 +1,4 @@
-import { Challenge } from '../../typings';
+import { Challenge, Milestone } from '../../typings';
 import { FieldArrayWithId, UseFormReturn } from 'react-hook-form';
 import styles from './ChallengeMilestoneForm.module.scss';
 import DateInput from '../../ui/DateInput/ChallengeDateInput';
@@ -14,7 +14,7 @@ export interface MilestoneFormProps {
   register: any;
   onChange: UseFormReturn<Challenge>['setValue'];
   onDelete: () => void;
-  getValues: UseFormReturn<Challenge>['getValues'];
+  getValues: any;
   errors: any;
   trigger: any;
 }
@@ -84,39 +84,41 @@ export function MilestoneForm({ index, milestone, register, onChange, onDelete, 
         />
         <InputValidationError error={errors.milestones?.[index]?.location?.url?.message} />
       </div>      
-      <div className="flex flex-wrap gap-8">
-        <div>
-          <DateInput
-            name={`milestones[${index}].date.start`}
-            legend="Starts"
-            onChange={onChange}
-            register={register}
-            required={true}
-            trigger={trigger}
-            error={errors?.milestones?.[index]?.date?.start?.message}
-          />
-        </div>
-        <div>
-          <DateInput
-            name={`milestones[${index}].date.end`}
-            legend="Ends"
-            onChange={onChange}
-            min={getValues(`milestones`)?.[index]?.date?.start?.time}
-            disabled={!getValues(`milestones`)?.[index]?.date?.start}
-            register={register}
-            required={true}
-            trigger={trigger}
-            error={errors?.milestones?.[index]?.date?.end?.message}
-          />
-        </div>
+      <div className="flex flex-wrap">
+        <DateInput
+          name={`milestones[${index}].date.start`}
+          legend="Starts"
+          value={getValues(`milestones[${index}].date.start`)}
+          onChange={onChange}
+          min={getValues('date')?.start?.time}
+          max={getValues('date')?.end?.time}
+          register={register}
+          required={true}
+          trigger={trigger}
+          error={errors?.milestones?.[index]?.date?.start?.message}
+        />
+        <DateInput
+          name={`milestones[${index}].date.end`}
+          legend="Ends"
+          value={getValues(`milestones[${index}].date.end`)}
+          onChange={onChange}
+          min={getValues(`milestones`)?.[index]?.date?.start?.time}
+          max={getValues('date')?.end?.time}
+          disabled={!getValues(`milestones`)?.[index]?.date?.start}
+          register={register}
+          required={true}
+          trigger={trigger}
+          error={errors?.milestones?.[index]?.date?.end?.message}
+        />
       </div>      
       <FileInput
         name={`milestones.${index}.image`}
         label="Image"
         register={register}
         onChange={onChange}
-        required={true}
+        getValues={getValues}
         trigger={trigger}
+        required={true}
         error={errors?.milestones?.[index]?.image?.message}
       />
       <div className="flex pt-4 self-end">
