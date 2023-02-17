@@ -8,17 +8,24 @@ import ChallengeMilestoneForm from '../MilestoneForm/ChallengeMilestoneForm';
 
 /* eslint-disable-next-line */
 export interface CreateFormProps {
+  challenge?: Challenge;
   onSubmit: (challenge: Challenge) => void;
   onCancel: () => void;
 }
 
-export function ChallengeForm({ onSubmit, onCancel }: CreateFormProps) {
+export function ChallengeForm({ challenge, onSubmit, onCancel }: CreateFormProps) {
   const defaultMilestone: Milestone = {
     title: '',
     description: '',
     image: '',
     date: { start: undefined, end: undefined },
     location: { url: '' },
+  };
+  const defaultValues = challenge || {
+    title: undefined,
+    description: undefined,
+    date: { start: undefined, end: undefined },
+    milestones: [defaultMilestone],
   };
   const {
     register,
@@ -32,12 +39,7 @@ export function ChallengeForm({ onSubmit, onCancel }: CreateFormProps) {
     formState: { errors, isValid },
   } = useForm<Challenge>({
     mode: 'onSubmit',
-    defaultValues: {
-      title: undefined,
-      description: undefined,
-      date: { start: undefined, end: undefined },
-      milestones: [defaultMilestone],
-    },
+    defaultValues,
   });
   const { fields, append, remove } = useFieldArray({
     control,
@@ -123,8 +125,9 @@ export function ChallengeForm({ onSubmit, onCancel }: CreateFormProps) {
         label="Image"
         register={register}
         onChange={setValue}
-        required={true}
+        getValues={getValues}
         trigger={trigger}
+        required={true}
         error={errors.image?.message}
         data-testid="image"
       />

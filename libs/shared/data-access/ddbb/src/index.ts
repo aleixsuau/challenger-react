@@ -1,6 +1,6 @@
 import { db, storage } from '../../../../../firebase';
 import { collection, addDoc, DocumentData, query, where, getDocs, WhereFilterOp } from 'firebase/firestore';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage';
 
 export const addDocument = (collectionName: string, doc: DocumentData) => {
   return addDoc(collection(db, collectionName), doc);
@@ -24,6 +24,12 @@ export const uploadFile = (
     );
   });
 };
+
+export const deleteFile = (url: string) {
+  const fileRef = storage.refFromURL(url);
+
+  return deleteObject(fileRef);
+}
 
 export const queryDocuments = async <T>(collectionName: string, queryKey?: string, queryOperator: WhereFilterOp = '==', queryValue?: string | number | boolean): Promise<T[]> => {
   const queryConfig = queryKey && queryValue ? query(collection(db, collectionName), where(queryKey, queryOperator, queryValue)) : query(collection(db, collectionName));

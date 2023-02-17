@@ -1,3 +1,4 @@
+import { EyeIcon, PencilIcon } from '@heroicons/react/20/solid';
 import { MouseEventHandler } from 'react';
 import { Challenge } from '../../typings';
 import styles from './ChallengeCard.module.scss';
@@ -6,9 +7,15 @@ import styles from './ChallengeCard.module.scss';
 export interface ChallengeCardProps {
   challenge: Challenge;
   onClick: MouseEventHandler<HTMLDivElement>;
+  onEdit?: () => void;
 }
 
-function ChallengeCard({ challenge, onClick }: ChallengeCardProps) {
+function ChallengeCard({ challenge, onClick, onEdit }: ChallengeCardProps) {
+  const handleEdit = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    onEdit && onEdit();
+  };
+
   return (
     <div
       className="w-full cursor-pointer p-4 sm:w-1/2 lg:w-1/3 xl:w-1/4"
@@ -32,7 +39,14 @@ function ChallengeCard({ challenge, onClick }: ChallengeCardProps) {
             {challenge.description}
           </p>
           <div className="card-actions justify-end pt-2">
-            <button className="btn btn-primary" data-testid="cta">
+            {onEdit && (
+              <button className="btn btn-sm btn-secondary" data-testid="cta" onClick={handleEdit}>
+                <PencilIcon className="h-4 w-4 mr-2" />
+                Edit
+              </button>
+            )}
+            <button className="btn btn-sm btn-secondary" data-testid="cta">
+              <EyeIcon className="h-4 w-4 mr-2" />
               Read more
             </button>
           </div>

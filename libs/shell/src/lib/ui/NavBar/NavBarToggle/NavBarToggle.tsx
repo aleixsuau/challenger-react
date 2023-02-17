@@ -7,7 +7,7 @@ export interface NavbarToggleProps {
 
 export function NavBarToggle({ onToggle }: NavbarToggleProps) {
   const handleToggleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
+    e.stopPropagation();
     onToggle();
   };
 
