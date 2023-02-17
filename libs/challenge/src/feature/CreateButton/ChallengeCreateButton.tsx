@@ -8,11 +8,11 @@ export interface ChallengeCreateButtonProps {}
 
 export function ChallengeCreateButton(props: ChallengeCreateButtonProps) {
   const auth = useAuth();
-  const challenge = useChallenge();
+  const {createChallenge} = useChallenge();
 
   return (
     auth.user &&
-    <button className="btn btn-circle btn-primary border-2 text-2xl" title="Create challenge" onClick={challenge.create} data-testid="challenge-create-button">+</button>
+    <button className="btn btn-circle btn-primary border-2 text-2xl" title="Create challenge" onClick={createChallenge} data-testid="challenge-create-button">+</button>
   );
 }
 

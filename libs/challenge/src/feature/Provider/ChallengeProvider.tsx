@@ -4,18 +4,7 @@ import { Challenge } from '../../typings';
 import { addDocument, queryDocuments } from '@challenger/shared/data-access/ddbb';
 import { WhereFilterOp } from 'firebase/firestore';
 import { useDialog } from '@challenger/shared/ui';
-
-export interface ChallengeProviderProps {
-  children: React.ReactNode;
-}
-
-export interface ChallengeContext {
-  create: () => void;
-  // TODO: type this
-  get: (queryKey?: string, queryValue?: string, queryOperator?: WhereFilterOp) => Promise<any>;
-}
-
-const ChallengeContext = createContext<ChallengeContext | undefined>(undefined);
+import { useState, useEffect } from 'react';
 
 export const useChallenge = (): ChallengeContext => {
   const context = useContext(ChallengeContext);
@@ -27,30 +16,66 @@ export const useChallenge = (): ChallengeContext => {
   return context;
 };
 
-export const ChallengeProvider = ({ children }: ChallengeProviderProps) => {
-  const dialog = useDialog();  
-  const save = async (challenge: Partial<Challenge>) => {
+export const ChallengeProvider = ({ children }: ChallengeProviderProps) => {  
+  const dialog = useDialog();
+  const {challenges, getChallenges} = useChallenges();
+
+  const saveChallenge = async (challenge: Partial<Challenge>) => {
     return addDocument('challenges', challenge)
     .then(() => dialog.close())
+    .then(() => getChallenges())
     .catch((error) =>
       console.error('Error adding document: ', error)
     );
   };
-  const get = async (queryKey?: string, queryValue?: string, queryOperator?: WhereFilterOp ) => {
-    return queryDocuments('challenges', queryKey, queryValue, queryOperator).catch((error) =>
-      console.error('Error querying documents: ', error)
-    );
-  };
-  const create = () => {
-    dialog.open(<ChallengeForm onSubmit={save} onCancel={dialog.close} />, 'Create challenge');
+
+  const createChallenge = () => {
+    dialog.open(<ChallengeForm onSubmit={saveChallenge} onCancel={dialog.close} />, 'Create challenge');
   };
 
   return (
-    <ChallengeContext.Provider value={{ create, get }}>
+    <ChallengeContext.Provider value={{ challenges, getChallenges, createChallenge }}>
       {children}      
     </ChallengeContext.Provider>
   );
 }
 
 export default ChallengeProvider;
+
+export interface ChallengeProviderProps {
+  children: React.ReactNode;
+}
+
+export interface ChallengeContext {
+  challenges?: Challenge[];
+  createChallenge: () => void;
+  // TODO: type this
+  getChallenges: (key?: string, operator?: WhereFilterOp, value?: string | number | boolean) => void;
+}
+
+export interface ChallengesQuery {
+  key?: string;
+  value?: string | number | boolean;
+  operator?: WhereFilterOp;
+}
+
+const ChallengeContext = createContext<ChallengeContext | undefined>(undefined);
+
+const useChallenges = () => {
+  const [challengesQuery, setChallengesQuery] = useState<ChallengesQuery | undefined>(undefined);
+  const [challenges, setChallenges] = useState<Challenge[] | undefined>(undefined);
+
+  useEffect(() => {
+    queryDocuments<Challenge>('challenges', challengesQuery?.key, challengesQuery?.operator, challengesQuery?.value)
+      .then((challengesData) => setChallenges(challengesData));
+  }, [challengesQuery]);
+
+  const getChallenges = (key?: ChallengesQuery['key'], operator?: ChallengesQuery['operator'], value?: ChallengesQuery['value']) => {
+    setChallengesQuery({ key, value, operator });
+  };
+
+  return { challenges, getChallenges };
+}
+
+
 

@@ -25,9 +25,9 @@ export const uploadFile = (
   });
 };
 
-export const queryDocuments = async (collectionName: string, queryKey?: string, queryValue?: string, queryOperator: WhereFilterOp = '==') => {
+export const queryDocuments = async <T>(collectionName: string, queryKey?: string, queryOperator: WhereFilterOp = '==', queryValue?: string | number | boolean): Promise<T[]> => {
   const queryConfig = queryKey && queryValue ? query(collection(db, collectionName), where(queryKey, queryOperator, queryValue)) : query(collection(db, collectionName));
   const querySnapshot = await getDocs(queryConfig);
 
-  return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as T[];
 };

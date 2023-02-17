@@ -75,11 +75,11 @@ jest.mock('@challenger/shared/data-access/ddbb', () => ({
 }));
 
 const ChallengeCreateButtonMock = () => {
-  const challenge = useChallenge();
-  return <button onClick={challenge.create} data-testid="challenge-create-button">Create challenge</button>;
+  const {createChallenge} = useChallenge();
+  return <button onClick={createChallenge} data-testid="challenge-create-button">Create challenge</button>;
 };
 
 const ChallengesGetButtonMock = () => {
-  const challenge = useChallenge();
-  return <button data-testid="get-challenges-button" onClick={() => challenge.get()}>Get challenges</button>;
+  const {getChallenges} = useChallenge();
+  return <button data-testid="get-challenges-button" onClick={() => getChallenges()}>Get challenges</button>;
 };
