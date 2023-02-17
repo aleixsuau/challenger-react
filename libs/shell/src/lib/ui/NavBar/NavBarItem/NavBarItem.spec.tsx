@@ -19,7 +19,7 @@ describe('Navbar Item', () => {
       'href',
       section.link
     );
-    expect(getByTestId('navbar-item-link').textContent).toBe(section.text);
+    expect(getByTestId('navbar-item-link')?.textContent).toBe(section.text);
   });
 
   it('should display the `vertical` styles', () => {
