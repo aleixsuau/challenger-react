@@ -11,21 +11,21 @@ describe('Detail', () => {
         <ChallengeDetail challenge={mockedChallenge} />
       );
 
-      expect(getByTestId('challenge-hero')).toHaveStyle({
+      expect(getByTestId('challenge-detail-hero')).toHaveStyle({
         'background-image': `url(${mockedChallenge.image})`,
       });
-      expect(getByTestId('challenge-hero')?.textContent).toBe(
+      expect(getByTestId('challenge-detail-hero')?.textContent).toBe(
         mockedChallenge.title
       );
-      expect(getByTestId('challenge-description')?.textContent).not.toBe(
+      expect(getByTestId('challenge-detail-description')?.textContent).not.toBe(
         mockedChallenge.description
       );
 
-      await act(() => getByTestId('challenge-read-more-button')?.click());
+      await act(() =>
+        getByTestId('challenge-detail-read-more-button')?.click()
+      );
 
-      getByTestId('challenge-read-more-button')?.click();
-
-      expect(getByTestId('challenge-description')?.textContent).toBe(
+      expect(getByTestId('challenge-detail-description')?.textContent).toBe(
         mockedChallenge.description + 'Read less'
       );
 
@@ -41,13 +41,15 @@ describe('Detail', () => {
         <ChallengeDetail challenge={mockedChallenge} />
       );
 
-      expect(getByTestId('challenge-description')?.textContent).not.toBe(
+      expect(getByTestId('challenge-detail-description')?.textContent).not.toBe(
         mockedChallenge.description
       );
 
-      await act(() => getByTestId('challenge-read-more-button')?.click());
+      await act(() =>
+        getByTestId('challenge-detail-read-more-button')?.click()
+      );
 
-      expect(getByTestId('challenge-description')?.textContent).toBe(
+      expect(getByTestId('challenge-detail-description')?.textContent).toBe(
         mockedChallenge.description + 'Read less'
       );
     });

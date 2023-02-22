@@ -12,11 +12,11 @@ export function ChallengeDetail({ challenge }: ChallengeDetailProps) {
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   return (
-    <div className="max-h-[80vh]">
+    <div className="max-h-[80vh]" data-testid="challenge-detail">
       <div
         className="hero h-80 w-full bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${challenge.image})` }}
-        data-testid="challenge-hero"
+        data-testid="challenge-detail-hero"
       >
         <div className="hero-overlay bg-opacity-30"></div>
         <div className="hero-content text-neutral-content text-center">
@@ -30,7 +30,7 @@ export function ChallengeDetail({ challenge }: ChallengeDetailProps) {
       <div className="flex flex-col space-y-4 p-6">
         <div
           className="text-neutral text-center"
-          data-testid="challenge-description"
+          data-testid="challenge-detail-description"
         >
           <p
             className={showFullDescription ? 'line-clamp-none' : 'line-clamp-2'}
@@ -40,7 +40,7 @@ export function ChallengeDetail({ challenge }: ChallengeDetailProps) {
           <span
             className="cursor-pointer underline"
             onClick={() => setShowFullDescription(!showFullDescription)}
-            data-testid="challenge-read-more-button"
+            data-testid="challenge-detail-read-more-button"
           >
             Read {showFullDescription ? 'less' : 'more'}
           </span>
