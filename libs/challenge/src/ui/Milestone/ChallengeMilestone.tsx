@@ -1,12 +1,8 @@
 import { Disclosure, Transition } from '@headlessui/react';
-import {
-  ChevronUpIcon,
-  CalendarIcon,
-  ArrowRightIcon,
-  MapPinIcon,
-} from '@heroicons/react/20/solid';
+import { ChevronUpIcon, MapPinIcon } from '@heroicons/react/20/solid';
 import styles from './ChallengeMilestone.module.scss';
 import { Milestone } from '../../typings';
+import Dates from '../Dates/ChallengeDates';
 
 /* eslint-disable-next-line */
 export interface ChallengeMilestoneProps {
@@ -52,27 +48,7 @@ export function ChallengeMilestone({ milestone }: ChallengeMilestoneProps) {
               leaveTo="transform opacity-0"
             >
               <Disclosure.Panel className="text-neutral flex flex-col gap-4">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span
-                    className="badge badge-outline p-3"
-                    data-testid="milestone-date-start"
-                  >
-                    <CalendarIcon className={`mr-2 h-4 w-4`} />
-                    {formatDate(milestone.date?.start?.time)}
-                  </span>
-                  {milestone.date?.end?.time && (
-                    <>
-                      <ArrowRightIcon className={`h-4 w-4`} />
-                      <span
-                        className="badge badge-outline p-3"
-                        data-testid="milestone-date-end"
-                      >
-                        <CalendarIcon className={`mr-2 h-4 w-4`} />
-                        {formatDate(milestone.date?.end?.time)}
-                      </span>
-                    </>
-                  )}
-                </div>
+                <Dates start={milestone.date.start} end={milestone.date.end} />
                 {milestone.location.url && (
                   <a
                     href={milestone.location?.url}
@@ -101,16 +77,3 @@ export function ChallengeMilestone({ milestone }: ChallengeMilestoneProps) {
 }
 
 export default ChallengeMilestone;
-
-const formatDate = (date?: number): string => {
-  if (!date) return '';
-
-  const dateObj = new Date(date);
-
-  return dateObj.toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-  });
-};
