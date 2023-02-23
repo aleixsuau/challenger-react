@@ -46,26 +46,27 @@ function Dialog({ show, title, children, onClose }: DialogProps) {
       <div
         id="backdrop"
         className="fixed inset-0 z-40 bg-black opacity-25"
-      ></div>
-      <HeadlessUIDialog.Panel className="fixed inset-0 z-50 my-40 mx-auto max-w-[90%] max-h-[80vh] items-center justify-center outline-none overflow-scroll focus:outline-none">
-        <button
-          className="btn btn-primary btn-circle absolute top-4 right-4"
-          onClick={onClose}
-          data-testid="dialog-close-button"
-        >
-          <span className="text-2xl outline-none focus:outline-none">×</span>
-        </button>
-        <div className="w-full overflow-y-auto overflow-x-hidden rounded-lg border-0 bg-white shadow-lg outline-none focus:outline-none">
-          {title && (
-            <div className="mb-4 border-b border-solid border-slate-200 p-5">
+      ></div>       
+      <HeadlessUIDialog.Panel className="fixed inset-0 z-50 my-40 rounded-lg mx-auto max-w-[90%] max-h-[80vh] items-center justify-center outline-none overflow-scroll focus:outline-none">
+        <div className="w-full border-0 bg-white shadow-lg outline-none focus:outline-none">          
+          {/* HEADER */}                  
+          <div className={`sticky top-0 z-10 ${title ? 'bg-white mb-4 border-b border-solid border-slate-200 p-5' : ''}`}>
+            {title && (
               <HeadlessUIDialog.Title
                 className="text-primary-dark text-3xl font-semibold"
                 data-testid="dialog-title"
               >
                 {title}
-              </HeadlessUIDialog.Title>
-            </div>
-          )}
+              </HeadlessUIDialog.Title> 
+            )}
+            <button
+              className="btn btn-primary btn-circle absolute z-20 top-4 right-4"
+              onClick={onClose}
+              data-testid="dialog-close-button"
+            >
+              <span className="text-2xl outline-none focus:outline-none">×</span>
+            </button>                    
+          </div>
           <HeadlessUIDialog.Description
             as="div"
             className="text-primary flex flex-col gap-4 text-lg leading-relaxed"

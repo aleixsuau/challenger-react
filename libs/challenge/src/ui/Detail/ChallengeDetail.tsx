@@ -12,7 +12,7 @@ export function ChallengeDetail({ challenge }: ChallengeDetailProps) {
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   return (
-    <div className="max-h-[80vh]" data-testid="challenge-detail">
+    <div data-testid="challenge-detail">
       <div
         className="hero h-80 w-full bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${challenge.image})` }}
