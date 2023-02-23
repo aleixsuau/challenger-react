@@ -42,7 +42,7 @@ export function UserMenu() {
                 clipRule="evenodd"
               ></path>
             </svg>
-            <span className="truncate">{user?.displayName}</span>
+            <span className="truncate hidden md:block">{user?.displayName}</span>
             {user?.photoURL ? (
               <img
                 className="ring-primary-content ml-3 h-8 w-8 rounded-full ring-2"
