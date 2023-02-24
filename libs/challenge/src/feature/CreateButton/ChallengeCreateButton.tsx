@@ -7,12 +7,18 @@ import styles from './ChallengeCreateButton.module.scss';
 export interface ChallengeCreateButtonProps {}
 
 export function ChallengeCreateButton(props: ChallengeCreateButtonProps) {
-  const auth = useAuth();
+  const {user} = useAuth();
   const {createChallenge} = useChallenge();
 
   return (
-    auth.user &&
-    <button className="btn btn-circle btn-primary border-2 text-2xl" title="Create challenge" onClick={createChallenge} data-testid="challenge-create-button">+</button>
+    user &&
+    <button 
+      className="btn btn-circle btn-primary border-2 text-2xl"
+      title="Create challenge"
+      onClick={createChallenge}
+      data-testid="challenge-create-button">
+      +
+    </button>
   );
 }
 

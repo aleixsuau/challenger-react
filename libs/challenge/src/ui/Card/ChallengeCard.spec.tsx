@@ -1,9 +1,24 @@
 import { render } from '@testing-library/react';
-import { challengesMock } from '../../feature/List/ChallengeList.spec';
 import ChallengeCard from './ChallengeCard';
 import '@testing-library/jest-dom';
+import * as Challenge from '../../feature/Provider/ChallengeProvider';
+import { challengesMock } from '../../feature/List/ChallengeList.spec';
 
 describe('Card', () => {
+  const showChallenge = jest.fn();
+  const editChallenge = jest.fn();
+  const canEditChallenge = jest.fn(() => true);
+
+  beforeEach(() => {
+    jest.spyOn(Challenge, 'useChallenge').mockReturnValue(
+      {
+        challenges: challengesMock,
+        showChallenge,
+        editChallenge,
+        canEditChallenge,
+      } as any);
+  });
+
   describe('UI', () => {
     it('should display the correct elements', () => {
       const { queryByTestId } = render(<ChallengeCard challenge={challengesMock[0]} />);
@@ -16,35 +31,38 @@ describe('Card', () => {
     });
   });
 
-  describe('onClick', () => {
-    it('should trigger the onClick callback', () => {
-      const onClickFn = jest.fn();
-      const { queryByTestId } = render(<ChallengeCard challenge={challengesMock[0]} onClick={onClickFn} />);
+  describe('Show challenge', () => {
+    it('should show the challenge on card click', () => {
+      const { queryByTestId } = render(<ChallengeCard challenge={challengesMock[0]} />);
 
-      queryByTestId('challenge-card').click();
+      queryByTestId('challenge-card')?.click();
 
-      expect(onClickFn).toHaveBeenCalled();
+      expect(showChallenge).toHaveBeenCalled();
     });
   });
 
-  describe('onEdit', () => {
-    it('should show the onEdit button only if onEdit callback present', () => {
-      const { queryByTestId, rerender } = render(<ChallengeCard challenge={challengesMock[0]} />);
+  describe('Edit challenge', () => {
+    it('should show the edit button only to if user canEdit (challenge host)', () => {
+      jest.spyOn(Challenge, 'useChallenge').mockReturnValue({ canEditChallenge: jest.fn(() => false)} as any);
 
+      const { queryByTestId, rerender } = render(<ChallengeCard challenge={challengesMock[0]} />);
+      
       expect(queryByTestId('challenge-card-edit-cta')).toBeFalsy();
 
-      rerender(<ChallengeCard challenge={challengesMock[0]} onEdit={() => null} />);
+      jest.spyOn(Challenge, 'useChallenge').mockReturnValue({ canEditChallenge: jest.fn(() => true) } as any);
+
+      rerender(<ChallengeCard challenge={challengesMock[0]} />);
 
       expect(queryByTestId('challenge-card-edit-cta')).toBeTruthy();
     });
 
-    it('should trigger the onEdit callback', () => {
-      const onEditFn = jest.fn();
-      const { queryByTestId } = render(<ChallengeCard challenge={challengesMock[0]} onEdit={onEditFn} />);
+    it('should edit the challenge when the edit button is clicked', () => {
+      const { queryByTestId } = render(<ChallengeCard challenge={challengesMock[0]} />);
 
-      queryByTestId('challenge-card-edit-cta').click();
+      queryByTestId('challenge-card-edit-cta')?.click();
 
-      expect(onEditFn).toHaveBeenCalled();
+      expect(editChallenge).toHaveBeenCalled();
     });
   });
 });
+

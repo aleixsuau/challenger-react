@@ -1,7 +1,6 @@
 import { render } from '@testing-library/react';
 import ChallengeList from './ChallengeList';
 import * as Challenge from '../Provider/ChallengeProvider';
-
 export const challengesMock = [
   {
     id: '1',
@@ -37,48 +36,24 @@ export const challengesMock = [
     },
     milestones: [],
   },
-]
+];
+jest.mock('../../ui/Card/ChallengeCard', () => () => <div data-testid="challenge-card" />);
 
 describe('List', () => {
-  const showChallenge = jest.fn();
-  const editChallenge = jest.fn();
-
   beforeEach(() => {
-    jest.spyOn(Challenge, 'useChallenge').mockReturnValue(
-      { 
-        challenges: challengesMock,
-        showChallenge,
-        editChallenge,
-      } as any);
+    jest.spyOn(Challenge, 'useChallenge').mockReturnValue({challenges: challengesMock} as any);
   });
 
   describe('UI', () => {
-    it('should display one card per challenge', () => {
-      const { findAllByTestId } = render(<ChallengeList />);
+    it('should display one card per challenge', async () => {
+      const { findAllByTestId, debug } = render(<ChallengeList />);
+      const cards = await findAllByTestId('challenge-card');
 
-      findAllByTestId('challenge-card').then((cards: HTMLElement[]) => {
-        expect(cards.length).toEqual(challengesMock.length);
-      });
-    });
-  });
-
-  describe('Show challenge', () => {
-    it('should show the challenge on card click', () => {
-      const { queryAllByTestId } = render(<ChallengeList />);
-
-      queryAllByTestId('challenge-card')[0]?.click();
-
-      expect(showChallenge).toHaveBeenCalled();
-    });
-  });
-
-  describe('Edit challenge', () => {
-    it('should edit the challenge on card`s edit button click', () => {
-      const { queryAllByTestId } = render(<ChallengeList />);
-
-      queryAllByTestId('challenge-card-edit-cta')[0]?.click();
-
-      expect(editChallenge).toHaveBeenCalled();
+      expect(cards.length).toEqual(challengesMock.length);
     });
   });
 });
+
+
+
+

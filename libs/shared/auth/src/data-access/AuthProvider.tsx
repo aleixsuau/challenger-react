@@ -8,6 +8,7 @@ import {
 } from 'firebase/auth';
 import { AuthProviderAPI, AuthProviderProps } from '../typings';
 import { auth } from '../../../../../firebase';
+import { Member } from '../typings';
 
 const AuthContext = createContext<AuthProviderAPI | undefined>(undefined);
 
@@ -22,11 +23,13 @@ export const useAuth = () => {
 };
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<Member | null>(null);
 
   useEffect(() => {
     const unsubscribeFn = onAuthStateChanged(auth, (user) => {
-      setUser(user);
+      const memberData = getMemberData(user);
+
+      setUser(memberData);
     });
 
     return unsubscribeFn;
@@ -54,3 +57,11 @@ const loginWithGoogle = () => {
 const logout = () => {
   signOut(auth);
 };
+
+const getMemberData = (user: User | null): Member | null => {
+  if (!user) { return null };
+
+  const { displayName, email, emailVerified, phoneNumber, photoURL, providerId, providerData, uid} = user;
+  
+  return { displayName, email, emailVerified, phoneNumber, photoURL, providerId, providerData, uid };
+}

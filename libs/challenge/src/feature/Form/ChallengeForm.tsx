@@ -5,6 +5,7 @@ import DateInput from '../../ui/DateInput/ChallengeDateInput';
 import FileInput from '../../ui/FileInput/ChallengeFileInput';
 import InputValidationError from '../../ui/InputValidationError/ChallengeInputValidationError';
 import ChallengeMilestoneForm from '../MilestoneForm/ChallengeMilestoneForm';
+import { useAuth } from '@challenger/shared/auth';
 
 /* eslint-disable-next-line */
 export interface CreateFormProps {
@@ -14,6 +15,7 @@ export interface CreateFormProps {
 }
 
 export function ChallengeForm({ challenge, onSubmit, onCancel }: CreateFormProps) {
+  const {user} = useAuth();
   const defaultMilestone: Milestone = {
     title: '',
     description: '',
@@ -26,6 +28,7 @@ export function ChallengeForm({ challenge, onSubmit, onCancel }: CreateFormProps
     description: undefined,
     date: { start: undefined, end: undefined },
     milestones: [defaultMilestone],
+    host: user!,
   };
   const {
     register,
