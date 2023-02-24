@@ -1,4 +1,4 @@
-import { Member } from '@challenger/shared/util/typings';
+import { Member } from '@challenger/shared/auth';
 
 export interface Challenge {
   id?: string;

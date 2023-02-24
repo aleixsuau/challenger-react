@@ -1,25 +1,28 @@
 import { EyeIcon, PencilIcon } from '@heroicons/react/20/solid';
-import { MouseEventHandler } from 'react';
+import { useChallenge } from '../../feature/Provider/ChallengeProvider';
 import { Challenge } from '../../typings';
 import styles from './ChallengeCard.module.scss';
 
 /* eslint-disable-next-line */
 export interface ChallengeCardProps {
   challenge: Challenge;
-  onClick?: MouseEventHandler<HTMLDivElement>;
-  onEdit?: () => void;
 }
 
-function ChallengeCard({ challenge, onClick, onEdit }: ChallengeCardProps) {
+function ChallengeCard({ challenge }: ChallengeCardProps) {
+  const { showChallenge, canEditChallenge, editChallenge } = useChallenge();
+  const handleClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    showChallenge(challenge);
+  };
   const handleEdit = (event: React.MouseEvent) => {
     event.stopPropagation();
-    onEdit && onEdit();
+    editChallenge(challenge);
   };
 
   return (
     <div
       className="w-full cursor-pointer p-4 sm:w-1/2 lg:w-1/3 xl:w-1/4"
-      onClick={onClick}
+      onClick={handleClick}
       data-testid="challenge-card"
     >
       <div className="card bg-white shadow-md">
@@ -39,7 +42,7 @@ function ChallengeCard({ challenge, onClick, onEdit }: ChallengeCardProps) {
             {challenge.description}
           </p>
           <div className="card-actions justify-end pt-2">
-            {onEdit && (
+            {canEditChallenge(challenge) && (
               <button className="btn btn-sm btn-secondary" data-testid="challenge-card-edit-cta" onClick={handleEdit}>
                 <PencilIcon className="h-4 w-4 mr-2" />
                 Edit

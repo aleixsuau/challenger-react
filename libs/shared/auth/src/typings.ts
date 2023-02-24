@@ -1,11 +1,24 @@
-import { User } from 'firebase/auth';
+import { UserInfo } from 'firebase/auth';
 
 export interface AuthProviderProps {
   children: React.ReactNode | React.ReactNode[];
 }
 
 export interface AuthProviderAPI {
-  user: User | null;
+  user: Member | null;
   loginWithGoogle: () => void;
   logout: () => void;
+}
+
+export interface Member extends UserInfo {
+  readonly emailVerified: boolean;
+  readonly providerData: UserInfo[];
+}
+
+export interface MemberProviderData {
+  displayName: string;
+  email: string;
+  photoURL: string;
+  providerId: string;
+  uid: string;
 }

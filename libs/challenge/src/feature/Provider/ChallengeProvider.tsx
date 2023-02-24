@@ -6,6 +6,7 @@ import { WhereFilterOp } from 'firebase/firestore';
 import { useDialog } from '@challenger/shared/ui';
 import { useState, useEffect } from 'react';
 import ChallengeDetail from '../../ui/Detail/ChallengeDetail';
+import { useAuth } from '@challenger/shared/auth';
 
 export const useChallenge = (): ChallengeContext => {
   const context = useContext(ChallengeContext);
@@ -20,6 +21,7 @@ export const useChallenge = (): ChallengeContext => {
 export const ChallengeProvider = ({ children }: ChallengeProviderProps) => {  
   const {openDialog, closeDialog} = useDialog();
   const {challenges, getChallenges} = useChallenges();
+  const { user } = useAuth();
 
   const saveChallenge = (challenge: Partial<Challenge>) => {
     return setDocument('challenges', challenge)
@@ -34,7 +36,13 @@ export const ChallengeProvider = ({ children }: ChallengeProviderProps) => {
     openDialog(<ChallengeForm onSubmit={saveChallenge} onCancel={closeDialog} />, 'Create challenge');
   };
 
+  const canEditChallenge = (challenge: Challenge) => {
+    return challenge.host?.uid === user?.uid;
+  };
+
   const editChallenge = (challenge: Challenge) => {
+    if (!canEditChallenge(challenge)) { return; }
+
     openDialog(<ChallengeForm onSubmit={saveChallenge} onCancel={closeDialog} challenge={challenge} />, 'Edit challenge');
   };
 
@@ -43,7 +51,7 @@ export const ChallengeProvider = ({ children }: ChallengeProviderProps) => {
   };
 
   return (
-    <ChallengeContext.Provider value={{ challenges, getChallenges, createChallenge, editChallenge, showChallenge }}>
+    <ChallengeContext.Provider value={{ challenges, getChallenges, createChallenge, editChallenge, canEditChallenge, showChallenge }}>
       {children}      
     </ChallengeContext.Provider>
   );
@@ -59,6 +67,7 @@ export interface ChallengeContext {
   challenges?: Challenge[];
   createChallenge: () => void;
   editChallenge: (challenge: Challenge) => void;
+  canEditChallenge: (challenge: Challenge) => boolean;
   showChallenge: (challenge: Challenge) => void;
   getChallenges: (query?: ChallengesQuery) => void;
 }
