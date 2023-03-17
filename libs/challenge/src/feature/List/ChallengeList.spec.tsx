@@ -37,6 +37,7 @@ export const challengesMock = [
     milestones: [],
   },
 ];
+
 jest.mock('../../ui/Card/ChallengeCard', () => () => <div data-testid="challenge-card" />);
 
 describe('List', () => {

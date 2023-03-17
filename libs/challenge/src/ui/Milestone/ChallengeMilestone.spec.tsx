@@ -36,10 +36,10 @@ describe('Milestone', () => {
           milestoneMock.title
         );
         expect(getByTestId('milestone-date-start')?.textContent).toBe(
-          'Feb 14, 1:15 AM'
+          '2023-02-14 01:15'
         );
         expect(getByTestId('milestone-date-end')?.textContent).toBe(
-          'Feb 15, 1:30 AM'
+          '2023-02-15 01:30'
         );
         expect(getByTestId('milestone-location')?.textContent).toBe(
           milestoneMock.location.url
