@@ -22,8 +22,9 @@
         ],
         "styles": ["apps/challenger/src/styles.scss"],
         "scripts": [],
-        "webpackConfig": "@nrwl/react/plugins/webpack",
-        "postcssConfig": "apps/challenger/postcss.config.js"
+        "webpackConfig": "apps/challenger/webpack.config.js",
+        "postcssConfig": "apps/challenger/postcss.config.js",
+        "isolatedConfig": true
       },
       "configurations": {
         "development": {
