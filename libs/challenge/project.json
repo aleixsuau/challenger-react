@@ -11,26 +11,6 @@
         "lintFilePatterns": ["libs/challenge/**/*.{ts,tsx,js,jsx}"]
       }
     },
-    "build": {
-      "executor": "@nrwl/rollup:rollup",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/challenge",
-        "tsConfig": "libs/challenge/tsconfig.lib.json",
-        "project": "libs/challenge/package.json",
-        "entryFile": "libs/challenge/src/index.ts",
-        "external": ["react/jsx-runtime"],
-        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
-        "compiler": "babel",
-        "assets": [
-          {
-            "glob": "libs/challenge/README.md",
-            "input": ".",
-            "output": "."
-          }
-        ]
-      }
-    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

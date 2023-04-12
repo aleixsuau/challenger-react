@@ -11,26 +11,6 @@
         "lintFilePatterns": ["libs/shared/data-access/ddbb/**/*.{ts,tsx,js,jsx}"]
       }
     },
-    "build": {
-      "executor": "@nrwl/rollup:rollup",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/shared/data-access/ddbb",
-        "tsConfig": "libs/shared/data-access/ddbb/tsconfig.lib.json",
-        "project": "libs/shared/data-access/ddbb/package.json",
-        "entryFile": "libs/shared/data-access/ddbb/src/index.ts",
-        "external": ["react/jsx-runtime"],
-        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
-        "compiler": "babel",
-        "assets": [
-          {
-            "glob": "libs/shared/data-access/ddbb/README.md",
-            "input": ".",
-            "output": "."
-          }
-        ]
-      }
-    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
