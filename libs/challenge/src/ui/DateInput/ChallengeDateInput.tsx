@@ -47,8 +47,8 @@ export function DateInput({
   const maxDayjs = dayjs(max);
   const isDisabled = (date: dayjs.Dayjs) => !date || !!(min && date.endOf('day').isBefore(minDayjs)) || !!(max && date.startOf('day').isAfter(maxDayjs));
   const validate = {
-    isSameOrAfter: (date: ChallengeDate) => min ? dayjs(date.time).isSameOrAfter(minDayjs, 'minutes') ? true : `Date has to be same or after ${minDayjs.format('YYYY-MM-DD HH:mm')}` : true,
-    isSameOrBefore: (date: ChallengeDate) => max ? dayjs(date.time).isSameOrBefore(maxDayjs, 'minutes') ? true : `Date has to be same or before ${maxDayjs.format('YYYY-MM-DD HH:mm')}` : true,
+    isSameOrAfter: (date: ChallengeDate) => min ? dayjs(date.time).isSameOrAfter(minDayjs, 'minutes') ? true : `Date has to be same or after ${minDayjs.format('YYYY/MM/DD HH:mm')}` : true,
+    isSameOrBefore: (date: ChallengeDate) => max ? dayjs(date.time).isSameOrBefore(maxDayjs, 'minutes') ? true : `Date has to be same or before ${maxDayjs.format('YYYY/MM/DD HH:mm')}` : true,
   };
   const handleChange = (date: dayjs.Dayjs | null) => {
     onChange(name, formatDate(date));
@@ -79,7 +79,7 @@ export function DateInput({
             onChange={handleChange}
             placeholder={legend}
             minuteStep={15}
-            format="YYYY-MM-DD HH:mm"
+            format="YYYY/MM/DD HH:mm"
             className="input input-md input-bordered input-secondary text-secondary [&.ant-picker-focused]:outline-secondary shadow-none hover:border-transparent [&.ant-picker-focused]:outline [&.ant-picker-focused]:outline-2 [&.ant-picker-focused]:outline-offset-2"
           />
         </div>

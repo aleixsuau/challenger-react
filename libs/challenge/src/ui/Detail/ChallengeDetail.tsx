@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Challenge } from '../../typings';
 import styles from './ChallengeDetail.module.scss';
 import ChallengeMilestone from '../Milestone/ChallengeMilestone';
+import ChallengeDates from '../Dates/ChallengeDates';
 
 /* eslint-disable-next-line */
 export interface ChallengeDetailProps {
@@ -21,9 +22,10 @@ export function ChallengeDetail({ challenge }: ChallengeDetailProps) {
         <div className="hero-overlay bg-opacity-30"></div>
         <div className="hero-content text-neutral-content text-center">
           <div className="max-w-md">
-            <h1 className={`text-5xl font-bold text-white`}>
+            <h1 className="text-5xl font-bold text-white mb-4">
               {challenge.title}
             </h1>
+            <ChallengeDates start={challenge.date?.start} end={challenge.date?.end} />
           </div>
         </div>
       </div>

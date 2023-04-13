@@ -1,6 +1,7 @@
 import { EyeIcon, PencilIcon } from '@heroicons/react/20/solid';
 import { useChallenge } from '../../feature/Provider/ChallengeProvider';
 import { Challenge } from '../../typings';
+import ChallengeDates from '../Dates/ChallengeDates';
 import styles from './ChallengeCard.module.scss';
 
 /* eslint-disable-next-line */
@@ -37,6 +38,7 @@ function ChallengeCard({ challenge }: ChallengeCardProps) {
           <h2 className="card-title" data-testid="challenge-card-title">
             {challenge.title}
           </h2>
+          <ChallengeDates start={challenge.date?.start} end={challenge.date?.end} short />
           <p className="text-neutral line-clamp-4" data-testid="challenge-card-description">
             {' '}
             {challenge.description}

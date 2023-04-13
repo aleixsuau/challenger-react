@@ -25,8 +25,9 @@ describe('Card', () => {
 
       expect(queryByTestId('challenge-card')).toBeTruthy();
       expect(queryByTestId('challenge-card-image')).toHaveStyle(`background-image: url(${challengesMock[0].image})`)
-      expect(queryByTestId('challenge-card-title').textContent).toContain(challengesMock[0].title);
-      expect(queryByTestId('challenge-card-description').textContent).toContain(challengesMock[0].description);
+      expect(queryByTestId('challenge-card-title')?.textContent).toContain(challengesMock[0].title);
+      expect(queryByTestId('milestone-dates')).not.toBeNull();
+      expect(queryByTestId('challenge-card-description')?.textContent).toContain(challengesMock[0].description);
       expect(queryByTestId('challenge-card-read-more-cta')).toBeTruthy();
     });
   });

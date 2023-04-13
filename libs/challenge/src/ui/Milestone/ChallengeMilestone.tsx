@@ -2,7 +2,7 @@ import { Disclosure, Transition } from '@headlessui/react';
 import { ChevronUpIcon, MapPinIcon } from '@heroicons/react/20/solid';
 import styles from './ChallengeMilestone.module.scss';
 import { Milestone } from '../../typings';
-import Dates from '../Dates/ChallengeDates';
+import ChallengeDates from '../Dates/ChallengeDates';
 
 /* eslint-disable-next-line */
 export interface ChallengeMilestoneProps {
@@ -48,7 +48,7 @@ export function ChallengeMilestone({ milestone }: ChallengeMilestoneProps) {
               leaveTo="transform opacity-0"
             >
               <Disclosure.Panel className="text-neutral flex flex-col gap-4">
-                <Dates start={milestone.date.start} end={milestone.date.end} />
+                <ChallengeDates start={milestone.date.start} end={milestone.date.end} />
                 {milestone.location.url && (
                   <a
                     href={milestone.location?.url}
