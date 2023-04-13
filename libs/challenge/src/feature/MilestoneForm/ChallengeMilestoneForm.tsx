@@ -10,7 +10,7 @@ import InputValidationError from '../../ui/InputValidationError/ChallengeInputVa
 // TODO: add types
 export interface MilestoneFormProps {
   index: number;
-  milestone: FieldArrayWithId<Challenge>;
+  milestone: FieldArrayWithId<Milestone>;
   register: any;
   onChange: UseFormReturn<Challenge>['setValue'];
   onDelete: () => void;

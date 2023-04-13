@@ -106,6 +106,7 @@ export function ChallengeForm({ challenge, onSubmit, onCancel }: CreateFormProps
           name="date.start"
           legend="Starts"
           value={getValues('date.start')}
+          min={new Date().getTime()}
           max={getValues('date')?.end?.time}
           register={register}
           onChange={setValue}

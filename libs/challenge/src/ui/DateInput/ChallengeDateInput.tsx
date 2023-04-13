@@ -6,11 +6,13 @@ import { DatePicker } from 'antd';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import dayjs from 'dayjs';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(isSameOrBefore);
+dayjs.extend(isSameOrAfter);
 
 export interface DateInputProps {
   // TODO: type this
@@ -45,8 +47,8 @@ export function DateInput({
   const maxDayjs = dayjs(max);
   const isDisabled = (date: dayjs.Dayjs) => !date || !!(min && date.endOf('day').isBefore(minDayjs)) || !!(max && date.startOf('day').isAfter(maxDayjs));
   const validate = {
-    isAfter: (date: ChallengeDate) => min ? dayjs(date.time).isAfter(minDayjs, 'minutes') ? true : `Date has to be after ${minDayjs.format('YYYY-MM-DD HH:mm')}` : true,
-    isBefore: (date: ChallengeDate) => max ? dayjs(date.time).isSameOrBefore(maxDayjs, 'minutes') ? true : `Date has to be before ${maxDayjs.format('YYYY-MM-DD HH:mm')}` : true,
+    isSameOrAfter: (date: ChallengeDate) => min ? dayjs(date.time).isSameOrAfter(minDayjs, 'minutes') ? true : `Date has to be same or after ${minDayjs.format('YYYY-MM-DD HH:mm')}` : true,
+    isSameOrBefore: (date: ChallengeDate) => max ? dayjs(date.time).isSameOrBefore(maxDayjs, 'minutes') ? true : `Date has to be same or before ${maxDayjs.format('YYYY-MM-DD HH:mm')}` : true,
   };
   const handleChange = (date: dayjs.Dayjs | null) => {
     onChange(name, formatDate(date));
