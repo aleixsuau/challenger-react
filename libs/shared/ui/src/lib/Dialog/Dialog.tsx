@@ -28,21 +28,17 @@ export const DialogProvider = ({
   };
 
   return (
-    <DialogContext.Provider value={{ isDialogOpen, openDialog, closeDialog }}>
-      {dialogProviderChildren}
-      <Dialog
-        show={isDialogOpen}
-        title={title}
-        children={children}
-        onClose={() => setIsDialogOpen(false)}
-      />
+    <DialogContext.Provider value={{ title, children, isDialogOpen, openDialog, closeDialog }}>
+      {dialogProviderChildren}      
     </DialogContext.Provider>
   );
 };
 
-function Dialog({ show, title, children, onClose }: DialogProps) {
+export function Dialog() {
+  const { title, children, isDialogOpen, closeDialog } = useDialog();
+
   return (
-    <HeadlessUIDialog open={show} onClose={onClose} data-testid="dialog">
+    <HeadlessUIDialog open={isDialogOpen} onClose={closeDialog} data-testid="dialog">
       <div
         id="backdrop"
         className="fixed inset-0 z-40 bg-black opacity-25"
@@ -61,7 +57,7 @@ function Dialog({ show, title, children, onClose }: DialogProps) {
             )}
             <button
               className="btn btn-primary btn-circle absolute z-20 top-4 right-4"
-              onClick={onClose}
+              onClick={closeDialog}
               data-testid="dialog-close-button"
             >
               <span className="text-2xl outline-none focus:outline-none">×</span>
@@ -89,6 +85,8 @@ export interface DialogProps {
 }
 
 export interface DialogContext {
+  title?: string;
+  children: React.ReactNode;
   isDialogOpen: boolean;
   openDialog: (dialogChildren: React.ReactNode, title?: string) => void;
   closeDialog: () => void;

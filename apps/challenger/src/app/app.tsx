@@ -4,6 +4,7 @@ import { ChallengeList, ChallengeProvider } from '@challenger/challenge';
 import { Shell, ShellConfigProps } from '@challenger/shell';
 import styles from './app.module.scss';
 import { DialogProvider } from '@challenger/shared/ui';
+import { Dialog } from '@challenger/shared/ui';
 
 const shellConfigProps: ShellConfigProps = {
   title: 'challenger',
@@ -34,6 +35,7 @@ export function App() {
           >
             <ChallengeList />
           </Shell>
+          <Dialog />
         </ChallengeProvider>
       </DialogProvider>
     </AuthProvider>
