@@ -1,13 +1,14 @@
 import { Member } from '@challenger/shared/auth';
 
 export interface Challenge {
-  id?: string;
-  host?: Member;
+  id: string;
+  host: Member;
   title: string;
   description: string;
   milestones: Milestone[];
   date?: ChallengeDateRange;
   image?: string;
+  players?: string[];
 }
 
 export interface Milestone {

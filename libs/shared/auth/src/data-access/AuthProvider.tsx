@@ -26,8 +26,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<Member | null>(null);
 
   useEffect(() => {
-    const unsubscribeFn = onAuthStateChanged(auth, (user) => {
-      const memberData = getMemberData(user);
+    const unsubscribeFn = onAuthStateChanged(auth, async (user) => {
+      const memberData = await getMemberData(user);
 
       setUser(memberData);
     });
@@ -58,10 +58,11 @@ const logout = () => {
   signOut(auth);
 };
 
-const getMemberData = (user: User | null): Member | null => {
+const getMemberData = async (user: User | null): Promise<Member | null> => {
   if (!user) { return null };
 
-  const { displayName, email, emailVerified, phoneNumber, photoURL, providerId, providerData, uid} = user;
+  const {displayName, email, emailVerified, phoneNumber, photoURL, providerId, providerData, uid} = user;
+  const token = await user.getIdToken();
   
-  return { displayName, email, emailVerified, phoneNumber, photoURL, providerId, providerData, uid };
+  return {displayName, email, emailVerified, phoneNumber, photoURL, providerId, providerData, uid, token};
 }

@@ -3,6 +3,7 @@ import { Challenge } from '../../typings';
 import styles from './ChallengeDetail.module.scss';
 import ChallengeMilestone from '../Milestone/ChallengeMilestone';
 import ChallengeDates from '../Dates/ChallengeDates';
+import TakeChallengeButton from '../../feature/TakeChallengeButton/TakeChallengeButton';
 
 /* eslint-disable-next-line */
 export interface ChallengeDetailProps {
@@ -20,12 +21,13 @@ export function ChallengeDetail({ challenge }: ChallengeDetailProps) {
         data-testid="challenge-detail-hero"
       >
         <div className="hero-overlay bg-opacity-30"></div>
-        <div className="hero-content text-neutral-content text-center">
-          <div className="max-w-md">
-            <h1 className="text-5xl font-bold text-white mb-4">
+        <div className="hero-content text-neutral-content">
+          <div className="max-w-md flex flex-col items-center gap-4">
+            <h1 className="text-5xl font-bold text-white">
               {challenge.title}
             </h1>
             <ChallengeDates start={challenge.date?.start} end={challenge.date?.end} />
+            <TakeChallengeButton challenge={challenge}/>
           </div>
         </div>
       </div>

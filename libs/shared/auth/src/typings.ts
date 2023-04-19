@@ -13,6 +13,7 @@ export interface AuthProviderAPI {
 export interface Member extends UserInfo {
   readonly emailVerified: boolean;
   readonly providerData: UserInfo[];
+  readonly token: string;
 }
 
 export interface MemberProviderData {

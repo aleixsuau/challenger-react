@@ -4,7 +4,6 @@ import styles from './ChallengeDates.module.scss';
 import dayjs from 'dayjs';
 
 export const ChallengeDates = ({ start, end, short }: ChallengeDatesProps) => {
-  console.log('start, end', start, end)
   return (
     <div className="flex flex-wrap items-center gap-2" data-testid="milestone-dates">
       <span

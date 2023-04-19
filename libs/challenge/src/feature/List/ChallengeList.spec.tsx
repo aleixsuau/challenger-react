@@ -1,42 +1,7 @@
 import { render } from '@testing-library/react';
 import ChallengeList from './ChallengeList';
 import * as Challenge from '../Provider/ChallengeProvider';
-export const challengesMock = [
-  {
-    id: '1',
-    title: 'Challenge 1',
-    description: 'Description 1',
-    image: 'https://picsum.photos/200/300',
-    date: {
-      start: {
-        time: 1676039465229,
-        timezone: 'America/Sao_Paulo',
-      },
-      end: {
-        time: 1676039465229,
-        timezone: 'America/Sao_Paulo',
-      },
-    },
-    milestones: [],
-  },
-  {
-    id: '2',
-    title: 'Challenge 2',
-    description: 'Description 2',
-    image: 'https://picsum.photos/200/300',
-    date: {
-      start: {
-        time: 1676039465229,
-        timezone: 'America/Sao_Paulo',
-      },
-      end: {
-        time: 1676039465229,
-        timezone: 'America/Sao_Paulo',
-      },
-    },
-    milestones: [],
-  },
-];
+import { challengesMock } from '../../mocks.spec';
 
 jest.mock('../../ui/Card/ChallengeCard', () => () => <div data-testid="challenge-card" />);
 
